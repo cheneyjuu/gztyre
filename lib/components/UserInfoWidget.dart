@@ -31,7 +31,7 @@ class UserInfoWidget extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.all(5),
                     child: Text(
-                      "练胶厂",
+                      "炼胶厂",
                       style: TextStyle(color: Color.fromRGBO(40, 44, 52, 1)),
                     ),
                   ),

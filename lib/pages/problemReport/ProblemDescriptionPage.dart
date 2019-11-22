@@ -83,7 +83,7 @@ class _ProblemDescriptionPageState extends State<ProblemDescriptionPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new CupertinoPageScaffold(
+    return new WillPopScope(child: CupertinoPageScaffold(
       navigationBar: new CupertinoNavigationBar(
         leading: CupertinoNavigationBarBackButton(
           onPressed: () => Navigator.of(context).pop(widget.selectItem),
@@ -108,6 +108,9 @@ class _ProblemDescriptionPageState extends State<ProblemDescriptionPage> {
                   ...createWidgetList(posA),
                 ],
               ))),
-    );
+    ), onWillPop: () async {
+      Navigator.of(context).pop(this._selectItem);
+      return false;
+    });
   }
 }

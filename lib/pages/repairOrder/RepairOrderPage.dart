@@ -40,136 +40,173 @@ class _RepairOrderPageState extends State<RepairOrderPage> {
               child: Column(
                 children: <Widget>[
                   ListItemWidget(
-                    title: Text(
-                      "工单详情",
-                      style: TextStyle(fontSize: 16),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        ImageIcon(
+                            AssetImage("assets/images/icon/icon_detail.png"),
+                          color: Colors.grey,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Text(
+                            "工单详情",
+                            style: TextStyle(fontSize: 16),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        )
+                      ],
                     ),
                     onTap: () {
                       Navigator.of(context).push(
-                        CupertinoPageRoute(builder: (BuildContext context) {
-                          return RepairOrderDetailPage();
-                        })
-                      );
+                          CupertinoPageRoute(builder: (BuildContext context) {
+                        return RepairOrderDetailPage();
+                      }));
                     },
                   ),
                   Divider(
                     height: 1,
                   ),
                   ListItemWidget(
-                    title: Text(
-                      "维修详情",
-                      style: TextStyle(fontSize: 16),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                    title: Row(
+                      children: <Widget>[
+                        ImageIcon(
+                          AssetImage('assets/images/icon/icon_repair.png'),
+                          color: Colors.grey,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Text(
+                            "维修详情",
+                            style: TextStyle(fontSize: 16),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        )
+                      ],
                     ),
                     onTap: () {
                       Navigator.of(context).push(
                           CupertinoPageRoute(builder: (BuildContext context) {
-                            return RepairDetailPage();
-                          })
-                      );
+                        return RepairDetailPage();
+                      }));
                     },
                   ),
                   Divider(
                     height: 1,
                   ),
                   ListItemWidget(
-                    title: Text(
-                      "维修记录",
-                      style: TextStyle(fontSize: 16),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                    title: Row(
+                      children: <Widget>[
+                        ImageIcon(AssetImage('assets/images/icon/icon_time.png'), color: Colors.grey,),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Text(
+                            "维修记录",
+                            style: TextStyle(fontSize: 16),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        )
+                      ],
                     ),
                     onTap: () {
                       Navigator.of(context).push(
                           CupertinoPageRoute(builder: (BuildContext context) {
-                            return RepairHistoryPage();
-                          })
-                      );
+                        return RepairHistoryPage();
+                      }));
                     },
                   )
                 ],
               ),
             ),
-           Expanded(
-               child: ButtonBarWidget(
-                 button: Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                   children: <Widget>[
-                       ButtonWidget(
-                         child: Text('转接班人'),
-                         color: Color.fromRGBO(76, 129, 235, 1),
-                         onPressed: () {
-                           showCupertinoDialog(
-                               context: context,
-                               builder: (BuildContext context) {
-                                 return CupertinoAlertDialog(
-                                   content: Text(
-                                     "是否转接班人",
-                                     style: TextStyle(fontSize: 18),
-                                   ),
-                                   actions: <Widget>[
-                                     CupertinoDialogAction(
-                                       onPressed: () {
-                                         Navigator.of(context).pop();
-                                       },
-                                       child: Text("否"),
-                                     ),
-                                     CupertinoDialogAction(
-                                       onPressed: () {
-                                         Navigator.of(context).pushAndRemoveUntil(CupertinoPageRoute(builder: (BuildContext context) {
-                                           return ContainerPage(rootContext: context,);
-                                         }), (route) {
-                                           return true;
-                                         });
-                                       },
-                                       child: Text("是"),
-                                     )
-                                   ],
-                                 );
-                               });
-                         },
-                       ),
-                     ButtonWidget(
-                       child: Text('确认完工'),
-                       color: Color.fromRGBO(163, 6, 6, 1),
-                       onPressed: () {
-                         showCupertinoDialog(
-                             context: context,
-                             builder: (BuildContext context) {
-                               return CupertinoAlertDialog(
-                                 content: Text(
-                                   "是否确认完工",
-                                   style: TextStyle(fontSize: 18),
-                                 ),
-                                 actions: <Widget>[
-                                   CupertinoDialogAction(
-                                     onPressed: () {
-                                       Navigator.of(context).pop();
-                                     },
-                                     child: Text("否"),
-                                   ),
-                                   CupertinoDialogAction(
-                                     onPressed: () {
-                                       Navigator.of(context).pushAndRemoveUntil(CupertinoPageRoute(builder: (BuildContext context) {
-                                         return ContainerPage(rootContext: context,);
-                                       }), (route) {
-                                         return true;
-                                       });
-                                     },
-                                     child: Text("是"),
-                                   )
-                                 ],
-                               );
-                             });
-                       },
-                     )
-                   ],
-                 ),
-               ),
-           )
+            Expanded(
+              child: ButtonBarWidget(
+                button: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    ButtonWidget(
+                      child: Text('转接班人'),
+                      color: Color.fromRGBO(76, 129, 235, 1),
+                      onPressed: () {
+                        showCupertinoDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return CupertinoAlertDialog(
+                                content: Text(
+                                  "是否转接班人",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                actions: <Widget>[
+                                  CupertinoDialogAction(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text("否"),
+                                  ),
+                                  CupertinoDialogAction(
+                                    onPressed: () {
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                          CupertinoPageRoute(
+                                              builder: (BuildContext context) {
+                                        return ContainerPage(
+                                          rootContext: context,
+                                        );
+                                      }), (route) {
+                                        return true;
+                                      });
+                                    },
+                                    child: Text("是"),
+                                  )
+                                ],
+                              );
+                            });
+                      },
+                    ),
+                    ButtonWidget(
+                      child: Text('确认完工'),
+                      color: Color.fromRGBO(163, 6, 6, 1),
+                      onPressed: () {
+                        showCupertinoDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return CupertinoAlertDialog(
+                                content: Text(
+                                  "是否确认完工",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                actions: <Widget>[
+                                  CupertinoDialogAction(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text("否"),
+                                  ),
+                                  CupertinoDialogAction(
+                                    onPressed: () {
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                          CupertinoPageRoute(
+                                              builder: (BuildContext context) {
+                                        return ContainerPage(
+                                          rootContext: context,
+                                        );
+                                      }), (route) {
+                                        return true;
+                                      });
+                                    },
+                                    child: Text("是"),
+                                  )
+                                ],
+                              );
+                            });
+                      },
+                    )
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),

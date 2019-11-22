@@ -19,12 +19,7 @@ class _RepairTypePageState extends State<RepairTypePage> {
   /// todo
   String _selectItem = '';
 
-  List<String> repairType = [
-    '故障维修',
-    '工装维修',
-    '机加工维修'
-  ];
-
+  List<String> repairType = ['故障维修', '工装维修', '机加工维修'];
 
   TextEditingController _shiftController = new TextEditingController();
 
@@ -43,7 +38,8 @@ class _RepairTypePageState extends State<RepairTypePage> {
           onTap: () {
             if (this._selectItem == list[i]) {
               this._selectItem = '';
-            } else this._selectItem = list[i];
+            } else
+              this._selectItem = list[i];
             setState(() {});
           },
         ));
@@ -59,7 +55,8 @@ class _RepairTypePageState extends State<RepairTypePage> {
           onTap: () {
             if (this._selectItem == list[i]) {
               this._selectItem = '';
-            } else this._selectItem = list[i];
+            } else
+              this._selectItem = list[i];
             setState(() {});
           },
         ));
@@ -82,31 +79,36 @@ class _RepairTypePageState extends State<RepairTypePage> {
 
   @override
   Widget build(BuildContext context) {
-    return new CupertinoPageScaffold(
-      navigationBar: new CupertinoNavigationBar(
-        leading: CupertinoNavigationBarBackButton(
-          onPressed: () => Navigator.of(context).pop(widget.selectItem),
-          color: Color.fromRGBO(94, 102, 111, 1),
-        ),
-        middle: Text(
-          "维修类型",
-          style: TextStyle(fontWeight: FontWeight.w500),
-        ),
-        trailing: TextButtonWidget(
-          onTap: () {
-            Navigator.of(context).pop(this._selectItem);
-          },
-          text: "确定",
-        ),
-      ),
-      child: SafeArea(
-          child: CupertinoScrollbar(
-              child: ListView(
-                children: <Widget>[
+    return new WillPopScope(
+        child: CupertinoPageScaffold(
+          navigationBar: new CupertinoNavigationBar(
+            leading: CupertinoNavigationBarBackButton(
+              onPressed: () => Navigator.of(context).pop(widget.selectItem),
+              color: Color.fromRGBO(94, 102, 111, 1),
+            ),
+            middle: Text(
+              "维修类型",
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            trailing: TextButtonWidget(
+              onTap: () {
+                Navigator.of(context).pop(this._selectItem);
+              },
+              text: "确定",
+            ),
+          ),
+          child: SafeArea(
+              child: CupertinoScrollbar(
+                  child: ListView(
+            children: <Widget>[
 //                  SearchBar(controller: this._shiftController),
-                  ...createWidgetList(repairType),
-                ],
-              ))),
-    );
+              ...createWidgetList(repairType),
+            ],
+          ))),
+        ),
+        onWillPop: () async {
+          Navigator.of(context).pop(this._selectItem);
+          return false;
+        });
   }
 }

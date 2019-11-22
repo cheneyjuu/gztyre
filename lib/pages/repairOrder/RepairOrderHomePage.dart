@@ -14,7 +14,7 @@ class RepairOrderHomePage extends StatelessWidget {
     {
       "title": "工单A",
       "level": "1级",
-      "status": "已完成",
+      "status": "已完工",
       "description": "打发打发到发似懂非",
       "position": "炼胶厂",
       "device": "注塑机",
@@ -32,7 +32,7 @@ class RepairOrderHomePage extends StatelessWidget {
     {
       "title": "工单C",
       "level": "1级",
-      "status": "未完成",
+      "status": "未完工",
       "description": "打发打发到发似懂非懂克拉副驾驶登录福建省地方i啦是的就放i啊啥的飞机啊塑料袋封口机",
       "position": "炼胶厂",
       "device": "注塑机",

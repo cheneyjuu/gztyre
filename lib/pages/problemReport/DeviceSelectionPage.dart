@@ -98,7 +98,7 @@ class _DeviceSelectionPageState extends State<DeviceSelectionPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new CupertinoPageScaffold(
+    return new WillPopScope(child: CupertinoPageScaffold(
       navigationBar: new CupertinoNavigationBar(
         leading: CupertinoNavigationBarBackButton(
           onPressed: () => Navigator.of(context).pop(widget.selectItem),
@@ -125,6 +125,9 @@ class _DeviceSelectionPageState extends State<DeviceSelectionPage> {
                   ...createWidgetList(posC, "位置C"),
                 ],
               ))),
-    );
+    ), onWillPop: () async {
+      Navigator.of(context).pop(this._selectItem);
+      return false;
+    });
   }
 }

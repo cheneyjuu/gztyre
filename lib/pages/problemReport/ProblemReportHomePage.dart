@@ -33,6 +33,7 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
   String _device = '';
   String _repairType = '故障维修';
   String _problemDescription = '';
+
 //  List<String> _list = [];
 
   _buildTextareaWithPicAndVideoWidget() {
@@ -45,7 +46,7 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
 //        });
 //      },
 //      list: this._list,
-    listController: this._list,
+      listController: this._list,
       rootContext: widget.rootContext,
       textEditingController: this._description,
       placeholder: "补充故障描述...",
@@ -67,23 +68,34 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
                 shrinkWrap: true,
                 children: <Widget>[
                   ListItemWidget(
-                    title: this._device.length == 0
-                        ? Text("报修对象")
-                        : Text(
-                      this._device,
-                      style: TextStyle(
-                          color: Color.fromRGBO(
-                            52,
-                            115,
-                            178,
-                            1,
-                          )),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                    title: Row(
+                      children: <Widget>[
+                        ImageIcon(
+                          AssetImage('assets/images/icon/icon_device.png'),
+                          color: Colors.grey,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: this._device.length == 0
+                              ? Text("报修对象")
+                              : Text(
+                            this._device,
+                            style: TextStyle(
+                                color: Color.fromRGBO(
+                                  52,
+                                  115,
+                                  178,
+                                  1,
+                                )),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        )
+                      ],
                     ),
                     onTap: () {
-                      Navigator.of(widget.rootContext)
-                          .push(CupertinoPageRoute(builder: (BuildContext context) {
+                      Navigator.of(widget.rootContext).push(
+                          CupertinoPageRoute(builder: (BuildContext context) {
                         return DeviceSelectionPage(
                           selectItem: this._device,
                         );
@@ -96,7 +108,18 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
                     height: 1,
                   ),
                   ListItemSwitchWidget(
-                    title: Text("是否停机"),
+                    title: Row(
+                      children: <Widget>[
+                        ImageIcon(
+                          AssetImage('assets/images/icon/icon_stop.png'),
+                          color: Colors.grey,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Text("是否停机"),
+                        )
+                      ],
+                    ),
                     isStop: this._isStop,
                     onChanged: (bool isStop) {
                       this._isStop = isStop;
@@ -107,15 +130,27 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
                     height: 1,
                   ),
                   ListItemWidget(
-                    title: this._repairType.length == 0
-                        ? Text("维修类型")
-                        : Text(
-                      this._repairType,
-                      style: TextStyle(color: Color.fromRGBO(52, 115, 178, 1)),
+                    title: Row(
+                      children: <Widget>[
+                        ImageIcon(
+                          AssetImage('assets/images/icon/icon_repair.png'),
+                          color: Colors.grey,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: this._repairType.length == 0
+                              ? Text("维修类型")
+                              : Text(
+                            this._repairType,
+                            style: TextStyle(
+                                color: Color.fromRGBO(52, 115, 178, 1)),
+                          ),
+                        )
+                      ],
                     ),
                     onTap: () {
-                      Navigator.of(widget.rootContext)
-                          .push(CupertinoPageRoute(builder: (BuildContext context) {
+                      Navigator.of(widget.rootContext).push(
+                          CupertinoPageRoute(builder: (BuildContext context) {
                         return RepairTypePage(
                           selectItem: this._repairType,
                         );
@@ -128,17 +163,29 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
                     height: 1,
                   ),
                   ListItemWidget(
-                    title: this._problemDescription.length == 0
-                        ? Text("故障描述")
-                        : Text(
-                      this._problemDescription,
-                      style: TextStyle(color: Color.fromRGBO(52, 115, 178, 1)),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                    title: Row(
+                      children: <Widget>[
+                        ImageIcon(
+                          AssetImage('assets/images/icon/icon_description.png'),
+                          color: Colors.grey,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: this._problemDescription.length == 0
+                              ? Text("故障描述")
+                              : Text(
+                            this._problemDescription,
+                            style: TextStyle(
+                                color: Color.fromRGBO(52, 115, 178, 1)),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        )
+                      ],
                     ),
                     onTap: () {
-                      Navigator.of(widget.rootContext)
-                          .push(CupertinoPageRoute(builder: (BuildContext context) {
+                      Navigator.of(widget.rootContext).push(
+                          CupertinoPageRoute(builder: (BuildContext context) {
                         return ProblemDescriptionPage(
                           selectItem: this._problemDescription,
                         );
@@ -152,7 +199,7 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
                     child: _buildTextareaWithPicAndVideoWidget(),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 20,bottom: 10),
+                    padding: EdgeInsets.only(top: 20, bottom: 10),
                     child: TextareaWidget(
                       textEditingController: this._remark,
                       placeholder: "备注...",
@@ -162,13 +209,11 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
                 ],
               ),
             ),
-
             Align(
               alignment: Alignment.bottomCenter,
               child: ButtonBarWidget(
                 button: Container(
-                  child:
-                  ButtonWidget(
+                  child: ButtonWidget(
                     child: Text('上报故障'),
                     color: Color.fromRGBO(76, 129, 235, 1),
                     onPressed: () {
@@ -193,8 +238,10 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
                                       this._device = '';
                                       this._repairType = '故障维修';
                                       this._problemDescription = '';
-                                      this._description = new TextEditingController();
-                                      this._remark = new TextEditingController();
+                                      this._description =
+                                          new TextEditingController();
+                                      this._remark =
+                                          new TextEditingController();
                                       this._list.value = new List();
                                     });
                                     Navigator.of(context).pop();

@@ -132,7 +132,7 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                     ),
                     Expanded(
                       child: Text(
-                        "是否停机：${widget.isStop ? "是" : "否"}",
+                        "${widget.isStop ? "已停机" : "未停机"}",
                         style: TextStyle(
                             color: Color.fromRGBO(0, 0, 0, 0.45), fontSize: 15),
                         maxLines: 1,
