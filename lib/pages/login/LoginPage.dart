@@ -11,11 +11,11 @@ class LoginPage extends StatefulWidget {
 
   @override
   State createState() {
-    return new LoginPageState();
+    return new _LoginPageState();
   }
 }
 
-class LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> {
   TextEditingController _usernameController = new TextEditingController();
   TextEditingController _passwordController = new TextEditingController();
   bool _rememberUsername = true;
@@ -91,10 +91,12 @@ class LoginPageState extends State<LoginPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Text(
-            '忘记密码？',
-            style: TextStyle(color: Color.fromRGBO(44, 93, 187, 1)),
-          ),
+              '忘记密码？',
+              style: TextStyle(color: Color.fromRGBO(44, 93, 187, 1), fontSize: 14),
+              overflow: TextOverflow.fade,
+            ),
           Expanded(
+            flex: 1,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
@@ -105,8 +107,11 @@ class LoginPageState extends State<LoginPage> {
                         _rememberUsername = val;
                       });
                     }),
-                Text(
-                  "记住账号",
+                Expanded(
+                  child: Text(
+                    "记住账号",
+                    style: TextStyle(fontSize: 14),
+                  ),
                 )
               ],
             ),
@@ -122,8 +127,11 @@ class LoginPageState extends State<LoginPage> {
                         _rememberUsername = val;
                       });
                     }),
-                Text(
-                  "记住密码",
+                Expanded(
+                  child: Text(
+                    "记住密码",
+                    style: TextStyle(fontSize: 14),
+                  ),
                 )
               ],
             ),

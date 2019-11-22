@@ -11,10 +11,10 @@ class DeviceSelectionPage extends StatefulWidget {
   final String selectItem;
 
   @override
-  State createState() => DeviceSelectionPageState();
+  State createState() => _DeviceSelectionPageState();
 }
 
-class DeviceSelectionPageState extends State<DeviceSelectionPage> {
+class _DeviceSelectionPageState extends State<DeviceSelectionPage> {
 
   String _selectItem = '';
 
@@ -115,7 +115,6 @@ class DeviceSelectionPageState extends State<DeviceSelectionPage> {
           text: "确定",
         ),
       ),
-      backgroundColor: Color.fromRGBO(247, 247, 247, 1),
       child: SafeArea(
           child: CupertinoScrollbar(
               child: ListView(

@@ -12,10 +12,10 @@ class PasswordModifyPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State createState() => PasswordModifyPageState();
+  State createState() => _PasswordModifyPageState();
 }
 
-class PasswordModifyPageState extends State<PasswordModifyPage> {
+class _PasswordModifyPageState extends State<PasswordModifyPage> {
   TextEditingController _oldPasswordController = new TextEditingController();
   TextEditingController _newPasswordController = new TextEditingController();
   TextEditingController _confirmPasswordController =
@@ -39,7 +39,6 @@ class PasswordModifyPageState extends State<PasswordModifyPage> {
           style: TextStyle(fontWeight: FontWeight.w500),
         ),
       ),
-      backgroundColor: Color.fromRGBO(247, 247, 247, 1),
       child: SafeArea(
           child: CupertinoScrollbar(
         child: Column(

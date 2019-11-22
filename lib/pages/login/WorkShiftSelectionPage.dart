@@ -10,10 +10,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class WorkShiftSelectionPage extends StatefulWidget {
   @override
-  State createState() => WorkShiftSelectionPageState();
+  State createState() => _WorkShiftSelectionPageState();
 }
 
-class WorkShiftSelectionPageState extends State<WorkShiftSelectionPage> {
+class _WorkShiftSelectionPageState extends State<WorkShiftSelectionPage> {
   /// todo
   String _selectItem = '';
 
@@ -122,7 +122,6 @@ class WorkShiftSelectionPageState extends State<WorkShiftSelectionPage> {
           text: "确定",
         ),
       ),
-      backgroundColor: Color.fromRGBO(247, 247, 247, 1),
       child: SafeArea(
           child: CupertinoScrollbar(
               child: ListView(

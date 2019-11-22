@@ -5,10 +5,10 @@ import 'package:gztyre/components/ViewDialog.dart';
 
 class RepairDetailPage extends StatefulWidget {
   @override
-  State createState() => RepairDetailPageState();
+  State createState() => _RepairDetailPageState();
 }
 
-class RepairDetailPageState extends State<RepairDetailPage> {
+class _RepairDetailPageState extends State<RepairDetailPage> {
   List<Widget> _buildPic() {
     List<Widget> list = [];
     for (int i = 0; i < 2; i++) {
@@ -20,10 +20,10 @@ class RepairDetailPageState extends State<RepairDetailPage> {
         onTap: () {
           Navigator.of(context).push(new CupertinoPageRoute(
               builder: (context) => new ViewDialog(
-                    img: {'key': 'test', 'file': 'assets/images/user.jpeg'},
+                    img: {'key': 'test', 'asset': 'assets/images/user.jpeg'},
                     imgs: [
-                      {'key': 'test', 'file': 'assets/images/user.jpeg'},
-                      {'key': 'test2', 'file': 'assets/images/user.jpeg'}
+                      {'key': 'test', 'asset': 'assets/images/user.jpeg'},
+                      {'key': 'test2', 'asset': 'assets/images/user.jpeg'}
                     ],
                     onlyView: true,
                   )));
@@ -47,7 +47,6 @@ class RepairDetailPageState extends State<RepairDetailPage> {
           style: TextStyle(fontWeight: FontWeight.w500),
         ),
       ),
-      backgroundColor: Color.fromRGBO(247, 247, 247, 1),
       child: SafeArea(
         child: ListView(
           children: <Widget>[

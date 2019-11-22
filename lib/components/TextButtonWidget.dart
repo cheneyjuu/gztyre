@@ -8,11 +8,11 @@ class TextButtonWidget extends StatefulWidget {
 
   @override
   State createState() {
-    return new TextButtonWidgetState();
+    return new _TextButtonWidgetState();
   }
 }
 
-class TextButtonWidgetState extends State<TextButtonWidget> {
+class _TextButtonWidgetState extends State<TextButtonWidget> {
 
   @override
   Widget build(BuildContext context) {

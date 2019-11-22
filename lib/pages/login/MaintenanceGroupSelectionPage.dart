@@ -4,7 +4,7 @@ import 'package:gztyre/components/ListItemWidget.dart';
 
 class MaintenanceGroupSelectionPage extends StatelessWidget {
 
-  List<String> list = [
+  final List<String> list = [
     '跟班维修',
     '常早班维修',
     '工装维修'
@@ -20,7 +20,6 @@ class MaintenanceGroupSelectionPage extends StatelessWidget {
         ),
         middle: Text("选择维修分组", style: TextStyle(fontWeight: FontWeight.w100),),
       ),
-      backgroundColor: Color.fromRGBO(247, 247, 247, 1),
       child: SafeArea(
           child: CupertinoScrollbar(
             child: ListView.custom(childrenDelegate: SliverChildBuilderDelegate(

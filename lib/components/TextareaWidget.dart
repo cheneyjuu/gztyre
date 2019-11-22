@@ -10,11 +10,11 @@ class TextareaWidget extends StatefulWidget {
 
   @override
   State createState() {
-    return TextareaWidgetState();
+    return _TextareaWidgetState();
   }
 }
 
-class TextareaWidgetState extends State<TextareaWidget> {
+class _TextareaWidgetState extends State<TextareaWidget> {
 
   @override
   Widget build(BuildContext context) {

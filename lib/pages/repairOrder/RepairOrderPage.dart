@@ -12,11 +12,11 @@ import 'package:gztyre/pages/repairOrder/RepairOrderDetailPage.dart';
 class RepairOrderPage extends StatefulWidget {
   @override
   State createState() {
-    return RepairOrderPageState();
+    return _RepairOrderPageState();
   }
 }
 
-class RepairOrderPageState extends State<RepairOrderPage> {
+class _RepairOrderPageState extends State<RepairOrderPage> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -31,7 +31,6 @@ class RepairOrderPageState extends State<RepairOrderPage> {
           style: TextStyle(fontWeight: FontWeight.w500),
         ),
       ),
-      backgroundColor: Color.fromRGBO(247, 247, 247, 1),
       child: SafeArea(
         child: Column(
           children: <Widget>[

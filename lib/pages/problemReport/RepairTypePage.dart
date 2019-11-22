@@ -12,10 +12,10 @@ class RepairTypePage extends StatefulWidget {
   final String selectItem;
 
   @override
-  State createState() => RepairTypePageState();
+  State createState() => _RepairTypePageState();
 }
 
-class RepairTypePageState extends State<RepairTypePage> {
+class _RepairTypePageState extends State<RepairTypePage> {
   /// todo
   String _selectItem = '';
 
@@ -99,7 +99,6 @@ class RepairTypePageState extends State<RepairTypePage> {
           text: "确定",
         ),
       ),
-      backgroundColor: Color.fromRGBO(247, 247, 247, 1),
       child: SafeArea(
           child: CupertinoScrollbar(
               child: ListView(

@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gztyre/components/TimeLinePainter.dart';
+import 'package:gztyre/components/painter/TimeLinePainter.dart';
 import 'package:gztyre/pages/userCenter/UserInfoPage.dart';
 
 class RepairHistoryPage extends StatefulWidget {
   @override
   State createState() {
-    return RepairHistoryPageState();
+    return _RepairHistoryPageState();
   }
 }
 
-class RepairHistoryPageState extends State<RepairHistoryPage> {
+class _RepairHistoryPageState extends State<RepairHistoryPage> {
   int num = 4;
 
   List<Widget> _buildList() {
@@ -56,7 +56,6 @@ class RepairHistoryPageState extends State<RepairHistoryPage> {
           style: TextStyle(fontWeight: FontWeight.w500),
         ),
       ),
-      backgroundColor: Color.fromRGBO(247, 247, 247, 1),
       child: SafeArea(
 //          child: Row(
 //        children: <Widget>[

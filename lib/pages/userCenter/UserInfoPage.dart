@@ -19,7 +19,6 @@ class UserInfoPage extends StatelessWidget {
 //          style: TextStyle(fontWeight: FontWeight.w100),
 //        ),
       ),
-      backgroundColor: Color.fromRGBO(247, 247, 247, 1),
       child: SafeArea(
           child: Column(
         children: <Widget>[

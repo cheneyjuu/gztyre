@@ -46,7 +46,6 @@ class RepairOrderHomePage extends StatelessWidget {
       navigationBar: CupertinoNavigationBar(
         middle: Text("我的报修单",style: TextStyle(fontWeight: FontWeight.w500)),
       ),
-      backgroundColor: Color.fromRGBO(247, 247, 247, 1),
       child: SafeArea(
         child: Column(
           children: <Widget>[

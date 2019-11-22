@@ -8,17 +8,17 @@ import 'package:gztyre/pages/repairOrder/RepairOrderHomePage.dart';
 import 'package:gztyre/pages/userCenter/UserCenterPage.dart';
 
 class ContainerPage extends StatefulWidget {
-  ContainerPage({Key key, this.rootContext}) : super(key: key);
+  ContainerPage({Key key, @required this.rootContext,}) : super(key: key);
 
   final BuildContext rootContext;
 
   @override
   State createState() {
-    return new ContainerPageState();
+    return new _ContainerPageState();
   }
 }
 
-class ContainerPageState extends State<ContainerPage> {
+class _ContainerPageState extends State<ContainerPage> {
   var pages;
   var _selectPage;
 

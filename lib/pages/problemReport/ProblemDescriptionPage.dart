@@ -9,10 +9,10 @@ class ProblemDescriptionPage extends StatefulWidget {
   final String selectItem;
 
   @override
-  State createState() => ProblemDescriptionPageState();
+  State createState() => _ProblemDescriptionPageState();
 }
 
-class ProblemDescriptionPageState extends State<ProblemDescriptionPage> {
+class _ProblemDescriptionPageState extends State<ProblemDescriptionPage> {
 
   String _selectItem = '';
 
@@ -100,7 +100,6 @@ class ProblemDescriptionPageState extends State<ProblemDescriptionPage> {
           text: "确定",
         ),
       ),
-      backgroundColor: Color.fromRGBO(247, 247, 247, 1),
       child: SafeArea(
           child: CupertinoScrollbar(
               child: ListView(
