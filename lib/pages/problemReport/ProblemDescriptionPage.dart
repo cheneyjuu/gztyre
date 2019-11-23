@@ -19,12 +19,12 @@ class _ProblemDescriptionPageState extends State<ProblemDescriptionPage> {
   List<String> posA = [
     '描述A',
     '描述B',
-    '阿读书噶滴洒苏打粉萨噶蛋糕',
-    '阿斯顿嘎是滴噶蛋糕',
-    'asdfasgasdg阿斯顿嘎的时光',
-    'asdfasgasdg阿斯顿嘎的时asfasfasf光',
-    'asdfasgasdg阿斯顿嘎的asdfasdfasdf时光',
-    'asdfasgasdg阿斯顿嘎是滴噶滴噶蛋糕上的还是发货发货的凤凰山的时光'
+    '描述C',
+    '描述D',
+    '描述E',
+    '描述F',
+    '描述G',
+    '描述H'
   ];
 
   TextEditingController _shiftController = new TextEditingController();

@@ -76,10 +76,10 @@ class _EntryWidgetState extends State<EntryWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (!_hasToken) {
+//    if (!_hasToken) {
       return new LoginPage();
-    } else {
-      return new ContainerPage(rootContext: context,);
+//    } else {
+//      return new ContainerPage(rootContext: context,);
 //      return new RepairOrderPage();
 //      return new RepairOrderDetailPage();
 //      return new RepairDetailPage();
@@ -88,6 +88,6 @@ class _EntryWidgetState extends State<EntryWidget> {
 //      return new DeviceSelectionPage();
 //      return new RepairTypePage();
 //      return new ProblemDescriptionPage();
-    }
+//    }
   }
 }

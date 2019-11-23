@@ -46,7 +46,8 @@ class _RepairOrderPageState extends State<RepairOrderPage> {
                       children: <Widget>[
                         ImageIcon(
                             AssetImage("assets/images/icon/icon_detail.png"),
-                          color: Colors.grey,
+                          size: 16,
+                          color: Color.fromRGBO(60, 115, 240, 1),
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10),
@@ -74,7 +75,8 @@ class _RepairOrderPageState extends State<RepairOrderPage> {
                       children: <Widget>[
                         ImageIcon(
                           AssetImage('assets/images/icon/icon_repair.png'),
-                          color: Colors.grey,
+                          color: Color.fromRGBO(10, 65, 150, 1),
+                          size: 16,
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10),
@@ -100,7 +102,7 @@ class _RepairOrderPageState extends State<RepairOrderPage> {
                   ListItemWidget(
                     title: Row(
                       children: <Widget>[
-                        ImageIcon(AssetImage('assets/images/icon/icon_time.png'), color: Colors.grey,),
+                        ImageIcon(AssetImage('assets/images/icon/icon_time.png'), color: Color.fromRGBO(250, 90, 50, 1), size: 16,),
                         Padding(
                           padding: EdgeInsets.only(left: 10),
                           child: Text(

@@ -72,8 +72,8 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
                       children: <Widget>[
                         ImageIcon(
                           AssetImage('assets/images/icon/icon_device.png'),
-                          color: Colors.grey,
-//                          size: 22,
+                          color: Color.fromRGBO(250, 175, 30, 1),
+                          size: 16,
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10),
@@ -113,8 +113,8 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
                       children: <Widget>[
                         ImageIcon(
                           AssetImage('assets/images/icon/icon_stop.png'),
-                          color: Colors.grey,
-//                          size: 20,
+                          color: Color.fromRGBO(250, 70, 70, 1),
+                          size: 16,
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10),
@@ -136,8 +136,8 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
                       children: <Widget>[
                         ImageIcon(
                           AssetImage('assets/images/icon/icon_repair.png'),
-                          color: Colors.grey,
-//                          size: 20,
+                          color: Color.fromRGBO(10, 65, 150, 1),
+                          size: 16,
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10),
@@ -170,8 +170,8 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
                       children: <Widget>[
                         ImageIcon(
                           AssetImage('assets/images/icon/icon_description.png'),
-                          color: Colors.grey,
-//                          size: 20,
+                          color: Color.fromRGBO(150, 225, 190, 1),
+                          size: 16,
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10),

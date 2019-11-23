@@ -25,6 +25,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+    this._usernameController.text = "12345";
+    this._passwordController.text = "12345";
     _get("isRememberUsername").then((String val) {
       if ('0' == val) {
         _rememberUsername = false;
@@ -121,10 +123,10 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 CupertinoSwitch(
-                    value: _rememberUsername,
+                    value: _rememberPassword,
                     onChanged: (val) {
                       setState(() {
-                        _rememberUsername = val;
+                        _rememberPassword = val;
                       });
                     }),
                 Expanded(
@@ -172,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
               } else {
                 await _set("password", null);
               }
-              Navigator.push(
+              await Navigator.push(
                   context,
                   new CupertinoPageRoute(
                       builder: (context) => new WorkShiftSelectionPage()));

@@ -95,6 +95,7 @@ class _WorkShiftSelectionPageState extends State<WorkShiftSelectionPage> {
         print('a');
       }
     });
+    this._selectItem = "历史选择" + this.historyList[0];
     super.initState();
   }
 
@@ -112,8 +113,8 @@ class _WorkShiftSelectionPageState extends State<WorkShiftSelectionPage> {
         ),
         trailing: TextButtonWidget(
           onTap: () async {
-            await this._set("token", "12345");
-            Navigator.of(context).pushAndRemoveUntil(CupertinoPageRoute(builder: (BuildContext context) {
+//            await this._set("token", "12345");
+            await Navigator.of(context).pushAndRemoveUntil(CupertinoPageRoute(builder: (BuildContext context) {
               return ContainerPage(rootContext: context,);
             }), (route) {
               return true;
