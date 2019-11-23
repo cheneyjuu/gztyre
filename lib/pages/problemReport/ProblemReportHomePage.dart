@@ -73,6 +73,7 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
                         ImageIcon(
                           AssetImage('assets/images/icon/icon_device.png'),
                           color: Colors.grey,
+//                          size: 22,
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10),
@@ -113,6 +114,7 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
                         ImageIcon(
                           AssetImage('assets/images/icon/icon_stop.png'),
                           color: Colors.grey,
+//                          size: 20,
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10),
@@ -135,6 +137,7 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
                         ImageIcon(
                           AssetImage('assets/images/icon/icon_repair.png'),
                           color: Colors.grey,
+//                          size: 20,
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10),
@@ -168,6 +171,7 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
                         ImageIcon(
                           AssetImage('assets/images/icon/icon_description.png'),
                           color: Colors.grey,
+//                          size: 20,
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10),

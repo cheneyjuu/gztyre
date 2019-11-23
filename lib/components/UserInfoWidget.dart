@@ -52,6 +52,7 @@ class UserInfoWidget extends StatelessWidget {
                         ImageIcon(
                           AssetImage('assets/images/icon/icon_factory.png'),
                           color: Colors.white,
+                          size: 20,
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10),
@@ -70,6 +71,7 @@ class UserInfoWidget extends StatelessWidget {
                           ImageIcon(
                             AssetImage('assets/images/icon/icon_position.png'),
                             color: Colors.white,
+                            size: 16,
                           ),
                           Padding(
                             padding: EdgeInsets.only(left: 10),

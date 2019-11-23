@@ -35,10 +35,10 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
       child: GestureDetector(
         onTap: widget.onTap,
         child: Container(
-          height: 160,
+          height: 170,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            boxShadow: [BoxShadow(offset: Offset(4, 4), color: Color.fromRGBO(225, 225, 225, 1)), BoxShadow(offset: Offset(-4, -4), color: Color.fromRGBO(225, 225, 225, 1))],
+            boxShadow: [BoxShadow(offset: Offset.zero, spreadRadius: 1, color: Color.fromRGBO(225, 225, 225, 1))],
             color: Colors.white,
           ),
           child: Column(
@@ -149,6 +149,7 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Expanded(
+                      flex: 2,
                       child: Padding(
                         padding: EdgeInsets.all(10),
                         child: Column(
@@ -172,6 +173,7 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                       ),
                     ),
                     Expanded(
+                      flex: 2,
                       child: Padding(
                         padding: EdgeInsets.all(10),
                         child: Column(
@@ -195,6 +197,7 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                       ),
                     ),
                     Expanded(
+                      flex: 3,
                       child: Padding(
                         padding: EdgeInsets.all(10),
                         child: Column(
@@ -218,6 +221,7 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                       ),
                     ),
                     Expanded(
+                      flex: 3,
                       child: Padding(
                         padding: EdgeInsets.all(10),
                         child: Column(
