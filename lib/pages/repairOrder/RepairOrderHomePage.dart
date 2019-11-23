@@ -14,8 +14,8 @@ class RepairOrderHomePage extends StatelessWidget {
     {
       "title": "工单A",
       "level": "1级",
-      "status": "已完工",
-      "description": "打发打发到发似懂非",
+      "status": "维修中",
+      "description": "这是测试描述，假数据，假数据。这是测试描述，假数据，假数据。这是测试描述，假数据，假数据。这是测试描述，假数据，假数据。这是测试描述，假数据，假数据。这是测试描述，假数据，假数据。这是测试描述，假数据，假数据。这是测试描述，假数据，假数据。这是测试描述，假数据，假数据。",
       "position": "炼胶厂",
       "device": "注塑机",
       "isStop": false
@@ -25,15 +25,15 @@ class RepairOrderHomePage extends StatelessWidget {
       "level": "1级",
       "status": "维修中",
       "description": "打发打发到发似懂非懂克拉副驾驶登录福建省地方i啦是的就放i啊啥的飞机啊塑料袋封口机反对嘎嘎发的噶地方噶蛋糕阿斯顿发送到发萨噶说噶蛋糕料袋封口机",
-      "position": "第一好工厂",
+      "position": "炼胶厂",
       "device": "注塑机",
       "isStop": false
     },
     {
       "title": "工单C",
       "level": "1级",
-      "status": "未完工",
-      "description": "打发打发到发似懂非懂克拉副驾驶登录福建省地方i啦是的就放i啊啥的飞机啊塑料袋封口机",
+      "status": "维修中",
+      "description": "这是测试描述，假数据，假数据。这是测试描述，假数据，假数据。这是测试描述，假数据，假数据。这是测试描述，假数据，假数据。这是测试描述，假数据，假数据。",
       "position": "炼胶厂",
       "device": "注塑机",
       "isStop": false
