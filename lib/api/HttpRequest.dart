@@ -128,7 +128,7 @@ class HttpRequest {
     var xml = XmlUtils.buildProblemDescriptionXml("C");
     print(xml);
     try {
-      Response response = await http.post("/zpm_search_ilart/888/zpm_search_ilart/zpm_search_ilart",
+      Response response = await http.post("/zpm_search_katalogart/888/zpm_search_katalogart/zpm_search_katalogart",
           data: xml,
           options: Options(contentType: 'text/xml')
       );

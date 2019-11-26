@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:gztyre/api/HttpRequest.dart';
 import 'package:gztyre/api/HttpRequestRest.dart';
 import 'package:gztyre/api/model/Device.dart';
+import 'package:gztyre/api/model/FunctionPosition.dart';
 import 'package:gztyre/api/model/ProblemDescription.dart';
 import 'package:gztyre/api/model/RepairType.dart';
 import 'package:gztyre/commen/Global.dart';
@@ -41,6 +42,7 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
   ListController _list = ListController(list: []);
 
   Device _device;
+  FunctionPosition _position;
   RepairType _repairType;
   ProblemDescription _problemDescription;
 
@@ -94,17 +96,17 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
                               child: this._device == null
                                   ? Text("报修对象")
                                   : Text(
-                                this._device.EQKTX,
-                                style: TextStyle(
-                                    color: Color.fromRGBO(
-                                      52,
-                                      115,
-                                      178,
-                                      1,
-                                    )),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
+                                      this._device.EQKTX,
+                                      style: TextStyle(
+                                          color: Color.fromRGBO(
+                                        52,
+                                        115,
+                                        178,
+                                        1,
+                                      )),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                             )
                           ],
                         ),
@@ -112,11 +114,12 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
                           Navigator.of(widget.rootContext).push(
                               CupertinoPageRoute(
                                   builder: (BuildContext context) {
-                                    return DeviceSelectionPage(
-                                      selectItem: this._device,
-                                    );
-                                  })).then((value) {
-                            this._device = value;
+                            return DeviceSelectionPage(
+                              selectItem: this._device,
+                            );
+                          })).then((value) {
+                            this._device = value['device'];
+                            this._position = value['pos'];
                           });
                         },
                       ),
@@ -159,11 +162,11 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
                               child: this._repairType == null
                                   ? Text("维修类型")
                                   : Text(
-                                this._repairType.ILATX,
-                                style: TextStyle(
-                                    color:
-                                    Color.fromRGBO(52, 115, 178, 1)),
-                              ),
+                                      this._repairType.ILATX,
+                                      style: TextStyle(
+                                          color:
+                                              Color.fromRGBO(52, 115, 178, 1)),
+                                    ),
                             )
                           ],
                         ),
@@ -171,10 +174,10 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
                           Navigator.of(widget.rootContext).push(
                               CupertinoPageRoute(
                                   builder: (BuildContext context) {
-                                    return RepairTypePage(
-                                      selectItem: this._repairType,
-                                    );
-                                  })).then((value) {
+                            return RepairTypePage(
+                              selectItem: this._repairType,
+                            );
+                          })).then((value) {
                             this._repairType = value;
                           });
                         },
@@ -196,13 +199,13 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
                               child: this._problemDescription == null
                                   ? Text("故障描述")
                                   : Text(
-                                this._problemDescription.KURZTEXT,
-                                style: TextStyle(
-                                    color:
-                                    Color.fromRGBO(52, 115, 178, 1)),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
+                                      this._problemDescription.KURZTEXT_CODE,
+                                      style: TextStyle(
+                                          color:
+                                              Color.fromRGBO(52, 115, 178, 1)),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                             )
                           ],
                         ),
@@ -210,10 +213,10 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
                           Navigator.of(widget.rootContext).push(
                               CupertinoPageRoute(
                                   builder: (BuildContext context) {
-                                    return ProblemDescriptionPage(
-                                      selectItem: this._problemDescription,
-                                    );
-                                  })).then((value) {
+                            return ProblemDescriptionPage(
+                              selectItem: this._problemDescription,
+                            );
+                          })).then((value) {
                             this._problemDescription = value;
                           });
                         },
@@ -258,9 +261,10 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
                                     ),
                                     CupertinoDialogAction(
                                       onPressed: () async {
-
                                         Navigator.of(context).pop();
-                                        this._loading = true;
+                                        setState(() {
+                                          this._loading = true;
+                                        });
                                         String left = '';
                                         for (var i = 0; i < 16; i++) {
                                           left = left +
@@ -282,76 +286,137 @@ class _ProblemReportHomePageState extends State<ProblemReportHomePage> {
                                             });
                                           }, (err) {
                                             print(err);
-                                            this._loading = false;
+                                            setState(() {
+                                              this._loading = false;
+                                            });
                                             return;
                                           });
                                         }
                                         String sapNo = "";
                                         await HttpRequest.createReportOrder(
-                                            Global.userInfo.PERNR,
-                                            Global.workShift.TPLNR,
-                                            this._repairType == null ? '' : this._repairType.ILART ,
-                                            this._device == null ? '' : this._device.EQUNR,
-                                            Global.functionPosition.TPLNR,
-                                            this._problemDescription == null ? '' : this._problemDescription.CODEGRUPPE,
-                                            this._problemDescription == null ? '' : this._problemDescription.CODE,
+                                            Global.userInfo.PERNR ?? '',
+                                            Global.workShift.TPLNR ?? '',
+                                            this._repairType == null
+                                                ? ''
+                                                : this._repairType.ILART,
+                                            this._device == null
+                                                ? ''
+                                                : this._device.EQUNR,
+                                            this._position.TPLNR,
+                                            this._problemDescription == null
+                                                ? ''
+                                                : this
+                                                    ._problemDescription
+                                                    .CODEGRUPPE,
+                                            this._problemDescription == null
+                                                ? ''
+                                                : this
+                                                    ._problemDescription
+                                                    .CODE,
                                             this._description.text,
-                                            Global.userInfo.CPLGR,
-                                            Global.userInfo.MATYP,
+                                            Global.userInfo.CPLGR ?? '',
+                                            Global.userInfo.MATYP ?? '',
                                             this._isStop ? "O" : "X",
                                             left, (res) {
                                           sapNo = res['QMNUM'];
+                                          HttpRequestRest.malfunction(
+                                              left,
+                                              sapNo,
+                                              1,
+                                              pictures,
+                                              video,
+                                              this._problemDescription == null
+                                                  ? ''
+                                                  : this
+                                                      ._problemDescription
+                                                      .KURZTEXT_CODE,
+                                              this._description.text,
+                                              this._remark.text,
+                                              this._isStop, (res) {
+                                            setState(() {
+                                              this._loading = false;
+                                            });
+                                            showCupertinoDialog(
+                                                context: widget.rootContext,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return CupertinoAlertDialog(
+                                                    content: Text(
+                                                      "上报成功",
+                                                      style: TextStyle(
+                                                          fontSize: 18),
+                                                    ),
+                                                    actions: <Widget>[
+                                                      CupertinoDialogAction(
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        child: Text("好"),
+                                                      ),
+                                                    ],
+                                                  );
+                                                });
+                                          }, (err) {
+                                            setState(() {
+                                              this._loading = false;
+                                            });
+                                            showCupertinoDialog(
+                                                context: widget.rootContext,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return CupertinoAlertDialog(
+                                                    content: Text(
+                                                      "上报失败",
+                                                      style: TextStyle(
+                                                          fontSize: 18),
+                                                    ),
+                                                    actions: <Widget>[
+                                                      CupertinoDialogAction(
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        child: Text("好"),
+                                                      ),
+                                                    ],
+                                                  );
+                                                });
+                                          });
                                         }, (err) {
                                           print(err);
                                           this._loading = false;
+                                          showCupertinoDialog(
+                                              context: widget.rootContext,
+                                              builder:
+                                                  (BuildContext context) {
+                                                return CupertinoAlertDialog(
+                                                  content: Text(
+                                                    "上报失败",
+                                                    style: TextStyle(
+                                                        fontSize: 18),
+                                                  ),
+                                                  actions: <Widget>[
+                                                    CupertinoDialogAction(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      child: Text("好"),
+                                                    ),
+                                                  ],
+                                                );
+                                              });
                                           return;
                                         });
-                                        await HttpRequestRest.malfunction(
-                                            left,
-                                            sapNo,
-                                            1,
-                                            pictures,
-                                            video,
-                                            this._problemDescription == null ? '' : this._problemDescription.KURZTEXT,
-                                            this._description.text,
-                                            this._remark.text,
-                                            this._isStop,
-                                                (res) {
-                                              this._loading = false;
-                                              showCupertinoDialog(
-                                                  context: widget.rootContext,
-                                                  builder: (
-                                                      BuildContext context) {
-                                                    return CupertinoAlertDialog(
-                                                      content: Text(
-                                                        "上报成功",
-                                                        style:
-                                                        TextStyle(fontSize: 18),
-                                                      ),
-                                                      actions: <Widget>[
-                                                        CupertinoDialogAction(
-                                                          onPressed: () {
-                                                            Navigator.of(
-                                                                context)
-                                                                .pop();
-                                                          },
-                                                          child: Text("好"),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  });
-                                            },
-                                                (err) {
-                                              this._loading = false;
-                                            });
                                         setState(() {
                                           this._device = null;
                                           this._repairType = null;
                                           this._problemDescription = null;
                                           this._description =
-                                          new TextEditingController();
+                                              new TextEditingController();
                                           this._remark =
-                                          new TextEditingController();
+                                              new TextEditingController();
                                           this._list.value = new List();
                                         });
                                       },

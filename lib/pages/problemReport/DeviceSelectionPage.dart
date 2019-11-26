@@ -21,6 +21,7 @@ class DeviceSelectionPage extends StatefulWidget {
 
 class _DeviceSelectionPageState extends State<DeviceSelectionPage> {
   Device _selectItem;
+  FunctionPosition _selectPosition;
 
   bool _loading = false;
 
@@ -31,7 +32,7 @@ class _DeviceSelectionPageState extends State<DeviceSelectionPage> {
 
   TextEditingController _shiftController = new TextEditingController();
 
-  List<Widget> search(String keyword) {}
+//  List<Widget> search(String keyword) {}
 
   _listPositionAndDevice() async {
     this._loading = true;
@@ -126,8 +127,9 @@ class _DeviceSelectionPageState extends State<DeviceSelectionPage> {
                   child: CupertinoPageScaffold(
                     navigationBar: new CupertinoNavigationBar(
                       leading: CupertinoNavigationBarBackButton(
-                        onPressed: () =>
-                            Navigator.of(context).pop(widget.selectItem),
+                        onPressed: () {
+                          Navigator.of(context).pop(widget.selectItem);
+                        },
                         color: Color.fromRGBO(94, 102, 111, 1),
                       ),
                       middle: Text(
@@ -136,7 +138,12 @@ class _DeviceSelectionPageState extends State<DeviceSelectionPage> {
                       ),
                       trailing: TextButtonWidget(
                         onTap: () {
-                          Navigator.of(context).pop(this._selectItem);
+                          this._postion.forEach((item) {
+                            if (item.childrenDevice.contains(this._selectItem)) {
+                              this._selectPosition = item;
+                            }
+                          });
+                          Navigator.of(context).pop({'device': this._selectItem, 'pos': this._selectPosition});
                         },
                         text: "确定",
                       ),

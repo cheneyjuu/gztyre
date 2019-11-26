@@ -97,6 +97,12 @@ class _LoginPageState extends State<LoginPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
+          Text(
+            '忘记密码？',
+            style:
+                TextStyle(color: Color.fromRGBO(44, 93, 187, 1), fontSize: 14),
+            overflow: TextOverflow.fade,
+          ),
           Expanded(
             flex: 1,
             child: Row(

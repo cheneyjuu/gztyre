@@ -63,4 +63,18 @@ class HttpRequestRest {
       onError(e);
     }
   }
+
+  static getMalfunction(
+      String tradeNo,
+      Function(Map map) onSuccess,
+      Function(DioError err) onError) async {
+    try {
+      Response response = await http.get("/api/malfunction/$tradeNo");
+      onSuccess(response.data);
+    } on DioError catch (e) {
+      onError(e);
+    }
+  }
+
+
 }

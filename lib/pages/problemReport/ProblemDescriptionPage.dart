@@ -34,7 +34,7 @@ class _ProblemDescriptionPageState extends State<ProblemDescriptionPage> {
         itemList.add(new GestureDetector(
           child: ListItemSelectWidget(
               title: Text(
-                list[i].KURZTEXT,
+                list[i].KURZTEXT_CODE,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),
@@ -55,7 +55,7 @@ class _ProblemDescriptionPageState extends State<ProblemDescriptionPage> {
         itemList.add(new GestureDetector(
           child: ListItemSelectWidget(
               title: Text(
-                list[i].KURZTEXT,
+                list[i].KURZTEXT_CODE,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),

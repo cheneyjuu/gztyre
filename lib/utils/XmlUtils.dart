@@ -1,4 +1,5 @@
 
+import 'package:dio/dio.dart';
 import 'package:gztyre/api/model/FunctionPositionWithDevice.dart';
 import 'package:gztyre/api/model/Order.dart';
 import 'package:gztyre/api/model/ProblemDescription.dart';
@@ -289,7 +290,7 @@ class XmlUtils {
       problemDescription.CODEGRUPPE = e.findAllElements("Codegruppe").first.text;
       problemDescription.KURZTEXT = e.findAllElements("Kurztext").first.text;
       problemDescription.CODE = e.findAllElements("Code").first.text;
-      problemDescription.KURZTEXT_CODE = e.findAllElements("Kurztext_code").first.text;
+      problemDescription.KURZTEXT_CODE = e.findAllElements("KurztextCode").first.text;
       return problemDescription;
     }).toList();
     return list;
@@ -345,6 +346,13 @@ class XmlUtils {
 
   static Map<String, String> readReportOrderXml(String stringXml) {
     var document = xml.parse(stringXml);
+    try {
+      if (document.findAllElements("Type").first.text == "E") {
+        throw DioError();
+      }
+    } catch (e) {
+      throw DioError();
+    }
     Map<String, String> map = new Map();
     map.putIfAbsent("QMNUM", () {
       return document.findAllElements("Qmnum").first.text;

@@ -57,9 +57,30 @@ class _RepairOrderHomePageState extends State<RepairOrderHomePage> {
     }
   ];
 
+  var _listRepairOrderFuture;
+
   bool _loading = false;
   UserInfo _userInfo;
   List<Order> _list;
+  List _extendList;
+//  _listRepairOrder() async {
+//    this._list = [];
+//       HttpRequest.listOrder(
+//        this._userInfo.PERNR,
+//        this._userInfo.CPLGR,
+//        this._userInfo.MATYP,
+//        this._userInfo.SORTB,
+//        this._userInfo.WCTYPE,
+//        '', (List<Order> list) {
+//      for (int i = 0; i < list.length; i++) {
+//        if (list[i].PERNR == this._userInfo.PERNR) {
+//          this._list.add(list[i]);
+//        }
+//      }
+//    }, (err) {
+//      print(err);
+//    });
+//  }
 
   Future<Null> onHeaderRefresh() {
 //    this._list = [];
@@ -75,6 +96,7 @@ class _RepairOrderHomePageState extends State<RepairOrderHomePage> {
 //          this._list.add(list[i]);
 //        }
 //      }
+//      setState(() {});
 //    }, (err) {
 //      print(err);
 //    });
@@ -86,59 +108,67 @@ class _RepairOrderHomePageState extends State<RepairOrderHomePage> {
   @override
   void initState() {
     this._userInfo = Global.userInfo;
+//    this._listRepairOrderFuture = this._listRepairOrder();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      backgroundColor: Color.fromRGBO(46, 105, 171, 1),
-      child: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(bottom: 5),
-              child: UserInfoWidget(
-                userInfo: this._userInfo,
-              ),
-            ),
-            Expanded(
-              child: Container(
-                color: Color.fromRGBO(231, 233, 234, 1),
-                child: CupertinoScrollbar(
-                  child: Refresh(
-                    onFooterRefresh: null,
-                    onHeaderRefresh: onHeaderRefresh,
-                    child: ListView.custom(
-                      childrenDelegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
-                          return new OrderCardWidget(
-                            title: list[index]['title'],
-                            level: list[index]['level'],
-                            status: list[index]['status'],
-                            description: list[index]['description'],
-                            position: list[index]['position'],
-                            device: list[index]['device'],
-                            isStop: list[index]['isStop'],
-                            onTap: () {
-                              Navigator.of(widget.rootContext)
-                                  .push(CupertinoPageRoute(builder: (context) {
-                                return RepairOrderPage();
-                              }));
+    return
+//      FutureBuilder(
+//      future: this._listRepairOrderFuture,
+//      builder: (BuildContext context, AsyncSnapshot snapshot) {
+//        return
+          CupertinoPageScaffold(
+          backgroundColor: Color.fromRGBO(46, 105, 171, 1),
+          child: SafeArea(
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(bottom: 5),
+                  child: UserInfoWidget(
+                    userInfo: this._userInfo,
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    color: Color.fromRGBO(231, 233, 234, 1),
+                    child: CupertinoScrollbar(
+                      child: Refresh(
+                        onFooterRefresh: null,
+                        onHeaderRefresh: onHeaderRefresh,
+                        child: ListView.custom(
+                          childrenDelegate: SliverChildBuilderDelegate(
+                                (BuildContext context, int index) {
+                              return new OrderCardWidget(
+                                title: list[index]['title'],
+                                level: list[index]['level'],
+                                status: list[index]['status'],
+                                description: list[index]['description'],
+                                position: list[index]['position'],
+                                device: list[index]['device'],
+                                isStop: list[index]['isStop'],
+                                onTap: () {
+                                  Navigator.of(widget.rootContext)
+                                      .push(CupertinoPageRoute(builder: (context) {
+                                    return RepairOrderPage();
+                                  }));
+                                },
+                              );
                             },
-                          );
-                        },
-                        childCount: 3,
+                            childCount: list.length,
+                          ),
+                          shrinkWrap: true,
+                        ),
                       ),
-                      shrinkWrap: true,
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
-    );
+          ),
+        );
+//      },
+//    );
   }
 }
