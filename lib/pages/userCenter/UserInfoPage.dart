@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gztyre/api/model/UserInfo.dart';
 import 'package:gztyre/components/ListItemWidget.dart';
 import 'package:gztyre/components/UserInfoWidget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UserInfoPage extends StatelessWidget {
+  UserInfoPage({Key key, this.userInfo}): super(key: key);
+
+  final UserInfo userInfo;
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -24,7 +28,7 @@ class UserInfoPage extends StatelessWidget {
         children: <Widget>[
           Padding(
             padding: EdgeInsets.only(bottom: 5),
-            child: UserInfoWidget(),
+            child: UserInfoWidget(userInfo: this.userInfo,),
           ),
           Padding(
             padding: EdgeInsets.only(top: 20),

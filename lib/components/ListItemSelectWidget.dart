@@ -7,8 +7,8 @@ class ListItemSelectWidget extends StatelessWidget {
 
   final Text title;
   final double height;
-  final String item;
-  final String selectedItem;
+  final item;
+  final selectedItem;
 
   final Color _color = Color.fromRGBO(255, 255, 255, 1);
 

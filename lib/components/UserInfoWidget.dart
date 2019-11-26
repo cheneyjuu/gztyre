@@ -1,7 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gztyre/api/model/UserInfo.dart';
 
 class UserInfoWidget extends StatelessWidget {
+
+  UserInfoWidget({Key key, this.userInfo}) : super(key: key);
+
+  final UserInfo userInfo;
+
   @override
   Widget build(BuildContext context) {
     return new Container(
@@ -24,14 +30,14 @@ class UserInfoWidget extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.all(5),
                     child: Text(
-                      "枣子哥",
+                      userInfo.ENAME,
                       style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w500),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(5),
                     child: Text(
-                      "跟班维修",
+                      userInfo.SORTT,
                       style: TextStyle(color: Colors.white, fontSize: 12),
                     ),
                   ),
@@ -57,7 +63,7 @@ class UserInfoWidget extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(left: 10),
                           child: Text(
-                            "炼胶厂",
+                            userInfo.TXTMD,
                             style: TextStyle(color: Colors.white, fontSize: 14),
                           ),
                         )
@@ -76,7 +82,7 @@ class UserInfoWidget extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(left: 10),
                             child: Text(
-                              "空调区域",
+                              userInfo.CPLTX,
                               style: TextStyle(color: Colors.white, fontSize: 14),
                             ),
                           )

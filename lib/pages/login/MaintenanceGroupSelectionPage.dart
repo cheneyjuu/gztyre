@@ -18,7 +18,7 @@ class MaintenanceGroupSelectionPage extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
           color: Color.fromRGBO(94, 102, 111, 1),
         ),
-        middle: Text("选择维修分组", style: TextStyle(fontWeight: FontWeight.w100),),
+        middle: Text("选择维修分组", style: TextStyle(fontWeight: FontWeight.w500),),
       ),
       child: SafeArea(
           child: CupertinoScrollbar(

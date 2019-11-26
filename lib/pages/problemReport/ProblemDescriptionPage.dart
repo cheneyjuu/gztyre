@@ -1,35 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gztyre/api/HttpRequest.dart';
+import 'package:gztyre/api/model/ProblemDescription.dart';
 import 'package:gztyre/components/ListItemSelectWidget.dart';
+import 'package:gztyre/components/ProgressDialog.dart';
 import 'package:gztyre/components/TextButtonWidget.dart';
 
 class ProblemDescriptionPage extends StatefulWidget {
   ProblemDescriptionPage({Key key, this.selectItem}) : super(key: key);
 
-  final String selectItem;
+  final ProblemDescription selectItem;
 
   @override
   State createState() => _ProblemDescriptionPageState();
 }
 
 class _ProblemDescriptionPageState extends State<ProblemDescriptionPage> {
+  ProblemDescription _selectItem;
+  bool _loading = false;
+  var _listProblemDescriptionFuture;
 
-  String _selectItem = '';
-
-  List<String> posA = [
-    '描述A',
-    '描述B',
-    '描述C',
-    '描述D',
-    '描述E',
-    '描述F',
-    '描述G',
-    '描述H'
-  ];
+  List<ProblemDescription> _list = [];
 
   TextEditingController _shiftController = new TextEditingController();
 
-  List<Widget> createWidgetList(List<String> list) {
+  List<Widget> createWidgetList(List<ProblemDescription> list) {
     List<Widget> itemList = [];
 //    itemList.add(ListTitleWidget(
 //      title: position,
@@ -38,13 +33,18 @@ class _ProblemDescriptionPageState extends State<ProblemDescriptionPage> {
       if (i == 0) {
         itemList.add(new GestureDetector(
           child: ListItemSelectWidget(
-              title: Text(list[i], overflow: TextOverflow.ellipsis, maxLines: 1,),
+              title: Text(
+                list[i].KURZTEXT,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
               item: list[i],
               selectedItem: this._selectItem),
           onTap: () {
             if (this._selectItem == list[i]) {
-              this._selectItem = '';
-            } else this._selectItem = list[i];
+              this._selectItem = null;
+            } else
+              this._selectItem = list[i];
             setState(() {});
           },
         ));
@@ -54,19 +54,39 @@ class _ProblemDescriptionPageState extends State<ProblemDescriptionPage> {
         ));
         itemList.add(new GestureDetector(
           child: ListItemSelectWidget(
-              title: Text(list[i], overflow: TextOverflow.ellipsis, maxLines: 1,),
+              title: Text(
+                list[i].KURZTEXT,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
               item: list[i],
               selectedItem: this._selectItem),
           onTap: () {
             if (this._selectItem == list[i]) {
-              this._selectItem = '';
-            } else this._selectItem = list[i];
+              this._selectItem = null;
+            } else
+              this._selectItem = list[i];
             setState(() {});
           },
         ));
       }
     }
     return itemList;
+  }
+
+  _listProblemDescription() {
+    this._loading = true;
+    HttpRequest.listProblemDescription((List<ProblemDescription> list) {
+      this._list = list;
+      setState(() {
+        this._loading = false;
+      });
+    }, (err) {
+      print(err);
+      setState(() {
+        this._loading = false;
+      });
+    });
   }
 
   @override
@@ -78,39 +98,51 @@ class _ProblemDescriptionPageState extends State<ProblemDescriptionPage> {
         print('a');
       }
     });
+    this._listProblemDescriptionFuture = this._listProblemDescription();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return new WillPopScope(child: CupertinoPageScaffold(
-      navigationBar: new CupertinoNavigationBar(
-        leading: CupertinoNavigationBarBackButton(
-          onPressed: () => Navigator.of(context).pop(widget.selectItem),
-          color: Color.fromRGBO(94, 102, 111, 1),
-        ),
-        middle: Text(
-          "故障描述",
-          style: TextStyle(fontWeight: FontWeight.w500),
-        ),
-        trailing: TextButtonWidget(
-          onTap: () {
-            Navigator.of(context).pop(this._selectItem);
-          },
-          text: "确定",
-        ),
-      ),
-      child: SafeArea(
-          child: CupertinoScrollbar(
-              child: ListView(
-                children: <Widget>[
+    return new WillPopScope(
+        child: FutureBuilder(
+          future: this._listProblemDescriptionFuture,
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            return ProgressDialog(
+              loading: this._loading,
+              child: CupertinoPageScaffold(
+                navigationBar: new CupertinoNavigationBar(
+                  leading: CupertinoNavigationBarBackButton(
+                    onPressed: () =>
+                        Navigator.of(context).pop(widget.selectItem),
+                    color: Color.fromRGBO(94, 102, 111, 1),
+                  ),
+                  middle: Text(
+                    "故障描述",
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                  trailing: TextButtonWidget(
+                    onTap: () {
+                      Navigator.of(context).pop(this._selectItem);
+                    },
+                    text: "确定",
+                  ),
+                ),
+                child: SafeArea(
+                    child: CupertinoScrollbar(
+                        child: ListView(
+                          children: <Widget>[
 //                  SearchBar(controller: this._shiftController),
-                  ...createWidgetList(posA),
-                ],
-              ))),
-    ), onWillPop: () async {
-      Navigator.of(context).pop(this._selectItem);
-      return false;
-    });
+                            ...createWidgetList(this._list),
+                          ],
+                        ))),
+              ),
+            );
+          },
+        ),
+        onWillPop: () async {
+          Navigator.of(context).pop(this._selectItem);
+          return false;
+        });
   }
 }

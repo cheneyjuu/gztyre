@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gztyre/api/HttpRequest.dart';
+import 'package:gztyre/api/model/UserInfo.dart';
+import 'package:gztyre/commen/Global.dart';
 import 'package:gztyre/components/ButtonWidget.dart';
 import 'package:gztyre/components/InputWidget.dart';
+import 'package:gztyre/components/ProgressDialog.dart';
 import 'package:gztyre/pages/login/WorkShiftSelectionPage.dart';
 import 'package:gztyre/utils/screen_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,6 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   bool _rememberUsername = true;
   bool _rememberPassword = true;
   GlobalKey _formKey = new GlobalKey<FormState>();
+  bool _loading = false;
 
   @override
   void initState() {
@@ -92,11 +97,6 @@ class _LoginPageState extends State<LoginPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Text(
-              '忘记密码？',
-              style: TextStyle(color: Color.fromRGBO(44, 93, 187, 1), fontSize: 14),
-              overflow: TextOverflow.fade,
-            ),
           Expanded(
             flex: 1,
             child: Row(
@@ -143,49 +143,65 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     return new CupertinoPageScaffold(
-        child: ListView(
-      children: <Widget>[
-        new SafeArea(
-          child: Padding(
-            padding: EdgeInsets.all(ScreenUtils.screenW(context) * 0.15),
-            child: logo,
+        child: ProgressDialog(
+          loading: this._loading,
+          child: ListView(
+            children: <Widget>[
+              new SafeArea(
+                child: Padding(
+                  padding: EdgeInsets.all(ScreenUtils.screenW(context) * 0.15),
+                  child: logo,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: ScreenUtils.screenH(context) / 10),
+                child: inputArea,
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 25.0, left: 10.0, right: 10.0),
+                child: ButtonWidget(
+                  child: Text(
+                    "登录",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  color: Color.fromRGBO(51, 115, 178, 1),
+                  onPressed: () async {
+                    if (_rememberUsername) {
+                      await _set("username", _usernameController.text);
+                    } else {
+                      await _set("username", null);
+                    }
+                    if (_rememberPassword) {
+                      await _set("password", _passwordController.text);
+                    } else {
+                      await _set("password", null);
+                    }
+                    setState(() {
+                      this._loading = true;
+                    });
+                    await HttpRequest.searchUserInfo(_usernameController.text, (UserInfo userInfo) {
+                      Global.userInfo = userInfo;
+                      setState(() {
+                        this._loading = false;
+                      });
+                    }, (err) {
+                      setState(() {
+                        this._loading = false;
+                      });
+                    });
+                    await Navigator.push(
+                        context,
+                        new CupertinoPageRoute(
+                            builder: (context) => new WorkShiftSelectionPage(userName: this._usernameController.text)));
+                  },
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                child: operationArea,
+              )
+            ],
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: ScreenUtils.screenH(context) / 10),
-          child: inputArea,
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: 25.0, left: 10.0, right: 10.0),
-          child: ButtonWidget(
-            child: Text(
-              "登录",
-              style: TextStyle(fontSize: 20),
-            ),
-            color: Color.fromRGBO(51, 115, 178, 1),
-            onPressed: () async {
-              if (_rememberUsername) {
-                await _set("username", _usernameController.text);
-              } else {
-                await _set("username", null);
-              }
-              if (_rememberPassword) {
-                await _set("password", _passwordController.text);
-              } else {
-                await _set("password", null);
-              }
-              await Navigator.push(
-                  context,
-                  new CupertinoPageRoute(
-                      builder: (context) => new WorkShiftSelectionPage()));
-            },
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 10.0, right: 10.0),
-          child: operationArea,
-        )
-      ],
-    ));
+        ));
   }
 }

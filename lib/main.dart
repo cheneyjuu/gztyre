@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gztyre/commen/Global.dart';
 import 'package:gztyre/pages/ContainerPage.dart';
 import 'package:gztyre/pages/login/LoginPage.dart';
 import 'package:gztyre/pages/login/MaintenanceGroupSelectionPage.dart';
@@ -19,13 +20,15 @@ import 'package:gztyre/pages/userCenter/UserInfoPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  runApp(MyApp());
-  if (Platform.isAndroid) {
-    //设置Android头部的导航栏透明
-    SystemUiOverlayStyle systemUiOverlayStyle =
-    SystemUiOverlayStyle(statusBarColor: Colors.transparent);
-    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-  }
+  Global.init().then((val) {
+    runApp(MyApp());
+    if (Platform.isAndroid) {
+      //设置Android头部的导航栏透明
+      SystemUiOverlayStyle systemUiOverlayStyle =
+      SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+      SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+    }
+  });
 }
 
 class MyApp extends StatelessWidget {

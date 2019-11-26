@@ -16,11 +16,11 @@ class OrderInfoWidget extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 10),
-                child: Text('接单人：小虎', style: TextStyle(fontSize: 14),),
+                child: Text('接   单   人：小虎', style: TextStyle(fontSize: 14),),
               ),
               Padding(
                 padding: EdgeInsets.all(10),
-                child: Text('工单进度：已完工', style: TextStyle(fontSize: 14),),
+                child: Text('接单时间：11-11 00:00', style: TextStyle(fontSize: 14),),
               ),
               Padding(
                 padding: EdgeInsets.all(10),
@@ -37,7 +37,7 @@ class OrderInfoWidget extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 10),
-                child: Text('接单时间：11-11 00:00', style: TextStyle(fontSize: 14),),
+                child: Text('工单进度：已完工', style: TextStyle(fontSize: 14),),
               ),
               Padding(
                 padding: EdgeInsets.all(10),

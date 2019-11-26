@@ -88,7 +88,7 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                                 Text(
                                   widget.status,
                                   style: TextStyle(
-                                      color: Color.fromRGBO(184, 35, 33, 100),
+                                      color: Color.fromRGBO(218, 4, 27, 1),
                                       fontSize: 14),
                                 )
                               ],
