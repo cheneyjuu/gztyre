@@ -35,7 +35,7 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
       child: GestureDetector(
         onTap: widget.onTap,
         child: Container(
-          height: 170,
+          height: 180,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             boxShadow: [BoxShadow(offset: Offset.zero, spreadRadius: 1, color: Color.fromRGBO(225, 225, 225, 1))],
@@ -53,34 +53,36 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                     children: <Widget>[
 //            Expanded(
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(right: 10),
+                            child: Text(
+                              widget.level,
+                              style: TextStyle(
+                                  color: Color.fromRGBO(218, 4, 27, 1),
+                                  fontSize: 14),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
                           Text(
                             widget.title,
                             style: TextStyle(
-                                color: Color.fromRGBO(0, 0, 0, 0.85), fontSize: 16, fontWeight: FontWeight.w700),
+                                color: Color.fromRGBO(218, 4, 27, 1), fontSize: 16, fontWeight: FontWeight.w700),
                           ),
                           Expanded(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: <Widget>[
 
-                                Padding(
-                                  padding: EdgeInsets.only(right: 10),
-                                  child: Text(
-                                    widget.level,
-                                    style: TextStyle(
-                                        color: Color.fromRGBO(218, 4, 27, 1),
-                                        fontSize: 14),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
+
                                 Padding(
                                   padding: EdgeInsets.only(right: 10),
                                   child:  Text(
                                     "${widget.isStop ? "已停机" : "未停机"}",
                                     style: TextStyle(
-                                        fontSize: 14),
+                                        fontSize: 14,),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -139,64 +141,17 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                   ),
                 ),
               ),
+              Divider(height: 1,),
               Container(
                 decoration: BoxDecoration(
-                  color: Color.fromRGBO(239, 239, 239, 1),
+//                  color: Color.fromRGBO(225, 225, 225, 1),
                   borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5), bottomRight: Radius.circular(5) )
                 ),
-                height: 60,
+                height: 70,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Expanded(
-                      flex: 2,
-                      child: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              "位置",
-                              style: TextStyle(
-                                  color: Color.fromRGBO(0, 0, 0, 0.45), fontSize: 12),
-                            ),
-                            Text(
-                              widget.position,
-                              style: TextStyle(
-                                  fontSize: 14),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              "设备",
-                              style: TextStyle(
-                                  color: Color.fromRGBO(0, 0, 0, 0.45), fontSize: 12),
-                            ),
-                            Text(
-                              widget.device,
-                              style: TextStyle(
-                                  fontSize: 14),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    Expanded(
                       flex: 3,
                       child: Padding(
                         padding: EdgeInsets.all(10),
@@ -204,46 +159,134 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
-                              "报修时长",
-                              style: TextStyle(
-                                  color: Color.fromRGBO(0, 0, 0, 0.45), fontSize: 12),
+                            Row(
+                              children: <Widget>[
+                                Text(
+                                  "位置：",
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(0, 0, 0, 0.45), fontSize: 12),
+                                ),
+                                Text(
+                                  widget.position,
+                                  style: TextStyle(
+                                      fontSize: 14),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                )
+                              ],
+                            ),Row(
+                              children: <Widget>[
+                                Text(
+                                  "报修：",
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(0, 0, 0, 0.45), fontSize: 12),
+                                ),
+                                Text(
+                                  "1天12时25分",
+                                  style: TextStyle(
+                                      fontSize: 14),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                )
+                              ],
                             ),
-                            Text(
-                              "1天12时25分",
-                              style: TextStyle(
-                                  fontSize: 14),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            )
+
                           ],
                         ),
                       ),
                     ),
+//                    Expanded(
+//                      flex: 2,
+//                      child: Padding(
+//                        padding: EdgeInsets.all(10),
+//                        child: Column(
+//                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                          crossAxisAlignment: CrossAxisAlignment.start,
+//                          children: <Widget>[
+//                            Text(
+//                              "设备",
+//                              style: TextStyle(
+//                                  color: Color.fromRGBO(0, 0, 0, 0.45), fontSize: 12),
+//                            ),
+//                            Text(
+//                              widget.device,
+//                              style: TextStyle(
+//                                  fontSize: 14),
+//                              maxLines: 1,
+//                              overflow: TextOverflow.ellipsis,
+//                            )
+//                          ],
+//                        ),
+//                      ),
+//                    ),
                     Expanded(
-                      flex: 3,
+                      flex: 2,
                       child: Padding(
                         padding: EdgeInsets.all(10),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
-                            Text(
-                              "等待时长",
-                              style: TextStyle(
-                                  color: Color.fromRGBO(0, 0, 0, 0.45), fontSize: 12),
+                            Row(
+                              children: <Widget>[
+                                Text(
+                                  "设备：",
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(0, 0, 0, 0.45), fontSize: 12),
+                                ),
+                                Text(
+                                  widget.device,
+                                  style: TextStyle(
+                                      fontSize: 14),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                )
+                              ],
                             ),
-                            Text(
-                              "1天10时30分",
-                              style: TextStyle(
-                                  fontSize: 14),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                            Row(
+                              children: <Widget>[
+                                Text(
+                                  "等待：",
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(0, 0, 0, 0.45), fontSize: 12),
+                                ),
+                                Text(
+                                  "1天10时30分",
+                                  style: TextStyle(
+                                      fontSize: 14),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                )
+                              ],
                             )
                           ],
                         ),
                       ),
                     ),
+//                    Expanded(
+//                      flex: 3,
+//                      child: Padding(
+//                        padding: EdgeInsets.all(10),
+//                        child: Column(
+//                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                          crossAxisAlignment: CrossAxisAlignment.start,
+//                          children: <Widget>[
+//                            Text(
+//                              "等待时长",
+//                              style: TextStyle(
+//                                  color: Color.fromRGBO(0, 0, 0, 0.45), fontSize: 12),
+//                            ),
+//                            Text(
+//                              "1天10时30分",
+//                              style: TextStyle(
+//                                  fontSize: 14),
+//                              maxLines: 1,
+//                              overflow: TextOverflow.ellipsis,
+//                            )
+//                          ],
+//                        ),
+//                      ),
+//                    ),
 //                    Expanded(
 //                      child: Text(
 //                        "设备：${widget.device}",

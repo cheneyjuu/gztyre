@@ -76,5 +76,18 @@ class HttpRequestRest {
     }
   }
 
+  static getOrders(
+      String userCode,
+      Function(List list) onSuccess,
+      Function(DioError err) onError) async {
+    try {
+      Response response = await http.get("/api/malfunction/user/$userCode");
+      onSuccess(response.data['data']);
+      print(response.data['data']);
+    } on DioError catch (e) {
+      onError(e);
+    }
+  }
+
 
 }

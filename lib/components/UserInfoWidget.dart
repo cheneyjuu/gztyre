@@ -41,12 +41,12 @@ class UserInfoWidget extends StatelessWidget {
                       style: TextStyle(color: Colors.white, fontSize: 12),
                     ),
                   ),
-                  Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Text(
-                        "13083286816",
-                        style: TextStyle(color: Colors.white, fontSize: 12),
-                      )),
+//                  Padding(
+//                      padding: EdgeInsets.all(5),
+//                      child: Text(
+//                        "13083286816",
+//                        style: TextStyle(color: Colors.white, fontSize: 12),
+//                      )),
                 ],
               ),
               Row(
