@@ -15,7 +15,7 @@ class ListItemSelectWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      decoration: BoxDecoration(color: _color),
+      decoration: BoxDecoration(color: this.item == this.selectedItem ? Color.fromRGBO(205, 205, 205, 1) : _color),
       height: this.height ?? 50.0,
       child: Row(
         children: <Widget>[

@@ -5,6 +5,7 @@ import 'package:gztyre/api/model/FunctionPositionWithDevice.dart';
 import 'package:gztyre/api/model/Order.dart';
 import 'package:gztyre/api/model/ProblemDescription.dart';
 import 'package:gztyre/api/model/RepairType.dart';
+import 'package:gztyre/api/model/ReportOrder.dart';
 import 'package:gztyre/api/model/UserInfo.dart';
 import 'package:gztyre/api/model/WorkShift.dart';
 import 'package:gztyre/utils/XmlUtils.dart';
@@ -12,11 +13,12 @@ import 'package:gztyre/utils/XmlUtils.dart';
 class HttpRequest {
   static Dio http = new Dio(BaseOptions(
     headers: {"Authorization": "Basic RGV2MDM6MTIzNDU2"},
-    baseUrl: "http://GYTSAP004.gztyre.com:8000/sap/bc/srt/rfc/sap",
-    connectTimeout: 15000
+    baseUrl: "http://192.168.6.37:8000/sap/bc/srt/rfc/sap",
+    connectTimeout: 6000
   ));
 
 
+  /// 查询用户信息
   static searchUserInfo(String userId, Function(UserInfo t) onSuccess, Function(DioError err) onError) async {
     var xml = XmlUtils.buildUserInfoXml(userId);
     print(xml);
@@ -31,6 +33,7 @@ class HttpRequest {
       }
   }
 
+  /// 列出位置与设备
   static listPositionAndDevice(String PERNR, Function(List<FunctionPosition> t) onSuccess, Function(DioError err) onError) async {
     var xml = XmlUtils.buildFunctionPositionXml(PERNR);
     print(xml);
@@ -45,7 +48,9 @@ class HttpRequest {
       tempFunctionPositionList = list.map((item) {
         FunctionPosition functionPosition = new FunctionPosition();
         functionPosition.childrenDevice = List();
+        functionPosition.childrenFunctionPosition = List();
         Device device = new Device();
+        device.childrenDevice = List();
         if (item.TPLNR2 != null && item.TPLNR2 != '') {
           functionPosition.TPLNR = item.TPLNR2;
           functionPosition.PLTXT = item.PLTXT2;
@@ -82,6 +87,7 @@ class HttpRequest {
     }
   }
 
+  /// 列出所有工作中心
   static listWorkShift(String PERNR, Function(List<WorkShift> t) onSuccess, Function(DioError err) onError) async {
     var xml = XmlUtils.buildWorkShiftXml(PERNR);
     print(xml);
@@ -96,6 +102,7 @@ class HttpRequest {
     }
   }
 
+  /// 列出所有工单
   static listOrder(String PERNR, String CPLGR, String MATYP, String SORTB, String WCTYPE, String ASTTX, Function(List<Order> t) onSuccess, Function(DioError err) onError) async {
     var xml = XmlUtils.buildOrderXml(PERNR, CPLGR, MATYP, SORTB, WCTYPE, ASTTX);
     print(xml);
@@ -110,6 +117,37 @@ class HttpRequest {
     }
   }
 
+  /// 报修单详情
+  static reportOrderDetail(String QMNUM, Function(ReportOrder t) onSuccess, Function(DioError err) onError) async {
+    var xml = XmlUtils.buildReportOrderDetailXml(QMNUM);
+    print(xml);
+    try {
+      Response response = await http.post("/zpm_search_ordermess/888/zpm_search_ordermess/zpm_search_ordermess",
+          data: xml,
+          options: Options(contentType: 'text/xml')
+      );
+      await onSuccess(XmlUtils.readReportOrderDetailXml(response.data));
+    } on DioError catch(e) {
+      await onError(e);
+    }
+  }
+
+  /// 维修单详情
+  static repairOrderDetail(String AUFNR, Function(ReportOrder t) onSuccess, Function(DioError err) onError) async {
+    var xml = XmlUtils.buildRepairOrderDetailXml(AUFNR);
+    print(xml);
+    try {
+      Response response = await http.post("/zpm_search_wxrec/888/zpm_search_wxrec/zpm_search_wxrec",
+          data: xml,
+          options: Options(contentType: 'text/xml')
+      );
+      await onSuccess(XmlUtils.readRepairOrderDetailXml(response.data));
+    } on DioError catch(e) {
+      await onError(e);
+    }
+  }
+
+  /// 列出所有维修类型
   static listRepairType(Function(List<RepairType> t) onSuccess, Function(DioError err) onError) async {
     var xml = XmlUtils.buildRepairTypeXml();
     print(xml);
@@ -124,6 +162,7 @@ class HttpRequest {
     }
   }
 
+  /// 列出所有问题描述
   static listProblemDescription(Function(List<ProblemDescription> t) onSuccess, Function(DioError err) onError) async {
     var xml = XmlUtils.buildProblemDescriptionXml("C");
     print(xml);
@@ -138,6 +177,7 @@ class HttpRequest {
     }
   }
 
+  /// 创建通知单
   static createReportOrder(String PERNR, String INGRP, String ILART, String EQUNR, String TPLNR, String FEGRP,
   String FECOD, String FETXT, String CPLGR, String MATYP, String MSAUS, String APPTRADENO, Function(Map<String, String> t) onSuccess, Function(DioError err) onError) async {
     var xml = XmlUtils.buildReportOrderXml(PERNR, INGRP, ILART, EQUNR, TPLNR, FEGRP,
@@ -153,5 +193,22 @@ class HttpRequest {
       await onError(e);
     }
   }
+
+  /// 更改工单状态
+//  static createReportOrder(String PERNR, String INGRP, String ILART, String EQUNR, String TPLNR, String FEGRP,
+//      String FECOD, String FETXT, String CPLGR, String MATYP, String MSAUS, String APPTRADENO, Function(Map<String, String> t) onSuccess, Function(DioError err) onError) async {
+//    var xml = XmlUtils.buildReportOrderXml(PERNR, INGRP, ILART, EQUNR, TPLNR, FEGRP,
+//        FECOD, FETXT, CPLGR, MATYP, MSAUS, APPTRADENO);
+//    print(xml);
+//    try {
+//      Response response = await http.post("/zpm_create_iw21/888/zpm_create_iw21/zpm_create_iw21",
+//          data: xml,
+//          options: Options(contentType: 'text/xml')
+//      );
+//      await onSuccess(XmlUtils.readReportOrderXml(response.data));
+//    } on DioError catch(e) {
+//      await onError(e);
+//    }
+//  }
 
 }

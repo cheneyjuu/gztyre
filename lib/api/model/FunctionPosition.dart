@@ -5,4 +5,5 @@ class FunctionPosition {
   String TPLNR;
   String PLTXT;
   List<Device> childrenDevice;
+  List<FunctionPosition> childrenFunctionPosition;
 }

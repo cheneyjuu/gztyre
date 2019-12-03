@@ -221,7 +221,6 @@ class _TextareaWithPicAndVideoWidgetState
                       ? TakePhotoAndVideoWidget(
                           canShoot: this._controller == null,
                           takePhotoCallback: (path) {
-//                    print(path);
                             if (path.endsWith('mp4')) {
                               print(path);
                               this._controller =
@@ -233,8 +232,6 @@ class _TextareaWithPicAndVideoWidgetState
                             } else {
                               this.appendList(widget.listController.value, path);
                             }
-//                            print({'childcallback.list': this.list.length});
-//                            widget.callback(this.list);
                             setState(() {});
                           },
                         )

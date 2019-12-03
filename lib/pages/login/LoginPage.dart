@@ -190,15 +190,20 @@ class _LoginPageState extends State<LoginPage> {
                       setState(() {
                         this._loading = false;
                       });
+                      Navigator.push(
+                          context,
+                          new CupertinoPageRoute(
+                              builder: (context) => new WorkShiftSelectionPage(userName: this._usernameController.text)));
                     }, (err) {
                       setState(() {
                         this._loading = false;
+                        return false;
                       });
                     });
-                    await Navigator.push(
-                        context,
-                        new CupertinoPageRoute(
-                            builder: (context) => new WorkShiftSelectionPage(userName: this._usernameController.text)));
+//                    await Navigator.push(
+//                        context,
+//                        new CupertinoPageRoute(
+//                            builder: (context) => new WorkShiftSelectionPage(userName: this._usernameController.text)));
                   },
                 ),
               ),

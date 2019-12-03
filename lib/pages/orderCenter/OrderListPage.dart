@@ -1,30 +1,20 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_refresh/flutter_refresh.dart';
 import 'package:gztyre/api/HttpRequest.dart';
 import 'package:gztyre/api/HttpRequestRest.dart';
 import 'package:gztyre/api/model/Order.dart';
 import 'package:gztyre/api/model/UserInfo.dart';
 import 'package:gztyre/commen/Global.dart';
-import 'package:gztyre/components/OrderCardWidget.dart';
+import 'package:gztyre/components/OrderCardLiteWidget.dart';
 import 'package:gztyre/components/ProgressDialog.dart';
-import 'package:gztyre/components/UserInfoWidget.dart';
-import 'package:gztyre/pages/repairOrder/RepairOrderPage.dart';
+import 'package:gztyre/pages/orderCenter/OrderDetailPage.dart';
 
-class RepairOrderHomePage extends StatefulWidget {
-  RepairOrderHomePage({Key key, @required this.rootContext})
-      : assert(rootContext != null),
-        super(key: key);
-
-  final BuildContext rootContext;
-
+class OrderListPage extends StatefulWidget {
   @override
-  State createState() {
-    return new _RepairOrderHomePageState();
-  }
+  State createState() => _OrderListPageState();
 }
 
-class _RepairOrderHomePageState extends State<RepairOrderHomePage> {
+class _OrderListPageState extends State<OrderListPage> {
   var _listRepairOrderFuture;
 
   bool _loading = false;
@@ -36,10 +26,10 @@ class _RepairOrderHomePageState extends State<RepairOrderHomePage> {
   _listRepairOrder() async {
     this._loading = true;
     this._list = [];
-    await HttpRequest.listOrder(this._userInfo.PERNR, null, null, null, "X", null,
-        (List<Order> list) {
+    HttpRequest.listOrder(this._userInfo.PERNR, null, null, null, "X", null,
+        (List list) {
       list.forEach((item) {
-        if (item.PERNR == this._userInfo.PERNR) {
+        if (item.QMNUM != null && item.QMNUM != '') {
           this._list.add(item);
         }
       });
@@ -56,22 +46,20 @@ class _RepairOrderHomePageState extends State<RepairOrderHomePage> {
 
   Future<Null> onHeaderRefresh() {
     this._list = [];
+
     return new Future(() async {
-      await HttpRequest.listOrder(this._userInfo.PERNR, null, null, null, "X", null,
-          (List list) {
+      await HttpRequest.listOrder(
+          this._userInfo.PERNR, null, null, null, "X", null,
+          (List<Order> list) {
         list.forEach((item) {
-          if (item.PERNR == this._userInfo.PERNR) {
+          if (item.QMNUM != null && item.QMNUM != '') {
             this._list.add(item);
           }
         });
-        setState(() {
-          this._loading = false;
-        });
+        setState(() {});
       }, (err) {
         print(err);
-        setState(() {
-          this._loading = false;
-        });
+        setState(() {});
       });
     });
   }
@@ -91,16 +79,17 @@ class _RepairOrderHomePageState extends State<RepairOrderHomePage> {
         return ProgressDialog(
           loading: this._loading,
           child: CupertinoPageScaffold(
-            backgroundColor: Color.fromRGBO(46, 105, 171, 1),
+            navigationBar: CupertinoNavigationBar(
+              leading: CupertinoNavigationBarBackButton(
+                onPressed: () => Navigator.pop(context),
+                color: Color.fromRGBO(94, 102, 111, 1),
+              ),
+              middle:
+                  Text("新订单", style: TextStyle(fontWeight: FontWeight.w500)),
+            ),
             child: SafeArea(
               child: Column(
                 children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 5),
-                    child: UserInfoWidget(
-                      userInfo: this._userInfo,
-                    ),
-                  ),
                   Expanded(
                     child: Container(
                       color: Color.fromRGBO(231, 233, 234, 1),
@@ -111,20 +100,19 @@ class _RepairOrderHomePageState extends State<RepairOrderHomePage> {
                           child: ListView.custom(
                             childrenDelegate: SliverChildBuilderDelegate(
                               (BuildContext context, int index) {
-                                return new OrderCardWidget(
+                                return new OrderCardLiteWidget(
                                   title: this._list[index].QMNUM ?? '',
+                                  /// todo
                                   level: "1级",
                                   status: this._list[index].ASTTX ?? '',
-                                  description: this._list[index].QMTXT ?? '',
                                   position: this._list[index].PLTXT ?? '',
                                   device: this._list[index].EQKTX ?? '',
                                   isStop: true,
                                   onTap: () {
-                                    Navigator.of(widget.rootContext).push(
-                                        CupertinoPageRoute(builder: (context) {
-                                      return RepairOrderPage(
-                                        order: this._list[index],
-                                      );
+                                    Navigator.of(context).push(
+                                        CupertinoPageRoute(
+                                            builder: (BuildContext context) {
+                                      return OrderDetailPage(order: this._list[index]);
                                     }));
                                   },
                                 );

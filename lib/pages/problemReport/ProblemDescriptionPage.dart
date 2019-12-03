@@ -22,7 +22,7 @@ class _ProblemDescriptionPageState extends State<ProblemDescriptionPage> {
 
   List<ProblemDescription> _list = [];
 
-  TextEditingController _shiftController = new TextEditingController();
+  TextEditingController _searchController = new TextEditingController();
 
   List<Widget> createWidgetList(List<ProblemDescription> list) {
     List<Widget> itemList = [];
@@ -92,8 +92,8 @@ class _ProblemDescriptionPageState extends State<ProblemDescriptionPage> {
   @override
   void initState() {
     this._selectItem = widget.selectItem;
-    this._shiftController.addListener(() {
-      if (this._shiftController.text == 'a') {
+    this._searchController.addListener(() {
+      if (this._searchController.text == 'a') {
         print(this._selectItem);
         print('a');
       }

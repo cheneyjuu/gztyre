@@ -1,33 +1,32 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class OrderCardWidget extends StatefulWidget {
-  OrderCardWidget(
-      {Key key,
-      @required this.title,
-      @required this.level,
-      @required this.status,
-      @required this.description,
-      @required this.position,
-      @required this.device,
-      @required this.isStop,
-      this.onTap})
-      : super(key: key);
+class OrderCardLiteWidget extends StatefulWidget {
+  OrderCardLiteWidget({
+    Key key,
+    @required this.title,
+    @required this.level,
+    @required this.status,
+    @required this.position,
+    @required this.device,
+    @required this.isStop,
+    this.onTap
+  }) : super(key: key);
 
   final VoidCallback onTap;
   final String title;
   final String level;
   final String status;
-  final String description;
   final String position;
   final String device;
   final bool isStop;
 
   @override
-  State createState() => OrderCardWidgetState();
+  State createState() => _OrderCardLiteWidgetState();
 }
 
-class OrderCardWidgetState extends State<OrderCardWidget> {
+class _OrderCardLiteWidgetState extends State<OrderCardLiteWidget> {
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -38,12 +37,7 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
           height: 120,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            boxShadow: [
-              BoxShadow(
-                  offset: Offset.zero,
-                  spreadRadius: 1,
-                  color: Color.fromRGBO(225, 225, 225, 1))
-            ],
+            boxShadow: [BoxShadow(offset: Offset.zero, spreadRadius: 1, color: Color.fromRGBO(225, 225, 225, 1))],
             color: Colors.white,
           ),
           child: Column(
@@ -71,28 +65,25 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-//                          Text(
-//                            widget.title,
-//                            style: TextStyle(
-//                                color: Color.fromRGBO(218, 4, 27, 1),
-//                                fontSize: 16,
-//                                fontWeight: FontWeight.w700),
-//                          ),
+                          Text(
+                            widget.title,
+                            style: TextStyle(
+                                color: Color.fromRGBO(218, 4, 27, 1), fontSize: 16, fontWeight: FontWeight.w700),
+                          ),
                           Expanded(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: <Widget>[
-//                                Padding(
-//                                  padding: EdgeInsets.only(right: 10),
-//                                  child: Text(
-//                                    "${widget.isStop ? "已停机" : "未停机"}",
-//                                    style: TextStyle(
-//                                      fontSize: 14,
-//                                    ),
-//                                    maxLines: 1,
-//                                    overflow: TextOverflow.ellipsis,
-//                                  ),
-//                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(right: 10),
+                                  child:  Text(
+                                    "${widget.isStop ? "已停机" : "未停机"}",
+                                    style: TextStyle(
+                                      fontSize: 14,),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
                                 Text(
                                   widget.status,
                                   style: TextStyle(
@@ -104,33 +95,29 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                           ),
                         ],
                       ),
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 10),
-                          child: Text(
-                            widget.description,
-                            style: TextStyle(
-                                color: Color.fromRGBO(0, 0, 0, 0.65),
-                                fontSize: 14),
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ),
+//                      Expanded(
+//                        child: Padding(
+//                          padding: EdgeInsets.only(top: 10),
+//                          child: Text(
+//                            widget.description,
+//                            style: TextStyle(
+//                                color: Color.fromRGBO(0, 0, 0, 0.65), fontSize: 14),
+//                            maxLines: 3,
+//                            overflow: TextOverflow.ellipsis,
+//                          ),
+//                        ),
+//                      ),
                     ],
                   ),
                 ),
               ),
-              Divider(
-                height: 1,
-              ),
+              Divider(height: 1,),
               Container(
                 decoration: BoxDecoration(
 //                  color: Color.fromRGBO(225, 225, 225, 1),
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(5),
-                        bottomRight: Radius.circular(5))),
-                height: 40,
+                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5), bottomRight: Radius.circular(5) )
+                ),
+                height: 70,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -147,37 +134,37 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                                 Text(
                                   "位置：",
                                   style: TextStyle(
-                                      color: Color.fromRGBO(0, 0, 0, 0.45),
-                                      fontSize: 12),
+                                      color: Color.fromRGBO(0, 0, 0, 0.45), fontSize: 12),
                                 ),
                                 Expanded(
                                   child: Text(
                                     widget.position,
-                                    style: TextStyle(fontSize: 14),
+                                    style: TextStyle(
+                                        fontSize: 14),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                )
+                              ],
+                            ),Row(
+                              children: <Widget>[
+                                Text(
+                                  "报修：",
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(0, 0, 0, 0.45), fontSize: 12),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    "1天12时25分",
+                                    style: TextStyle(
+                                        fontSize: 14),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 )
                               ],
                             ),
-//                            Row(
-//                              children: <Widget>[
-//                                Text(
-//                                  "报修：",
-//                                  style: TextStyle(
-//                                      color: Color.fromRGBO(0, 0, 0, 0.45),
-//                                      fontSize: 12),
-//                                ),
-//                                Expanded(
-//                                  child: Text(
-//                                    "1天12时25分",
-//                                    style: TextStyle(fontSize: 14),
-//                                    maxLines: 1,
-//                                    overflow: TextOverflow.ellipsis,
-//                                  ),
-//                                )
-//                              ],
-//                            ),
+
                           ],
                         ),
                       ),
@@ -195,37 +182,37 @@ class OrderCardWidgetState extends State<OrderCardWidget> {
                                 Text(
                                   "设备：",
                                   style: TextStyle(
-                                      color: Color.fromRGBO(0, 0, 0, 0.45),
-                                      fontSize: 12),
+                                      color: Color.fromRGBO(0, 0, 0, 0.45), fontSize: 12),
                                 ),
                                 Expanded(
                                   child: Text(
                                     widget.device,
-                                    style: TextStyle(fontSize: 14),
+                                    style: TextStyle(
+                                        fontSize: 14),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 )
                               ],
                             ),
-//                            Row(
-//                              children: <Widget>[
-//                                Text(
-//                                  "等待：",
-//                                  style: TextStyle(
-//                                      color: Color.fromRGBO(0, 0, 0, 0.45),
-//                                      fontSize: 12),
-//                                ),
-//                                Expanded(
-//                                  child: Text(
-//                                    "1天10时30分",
-//                                    style: TextStyle(fontSize: 14),
-//                                    maxLines: 1,
-//                                    overflow: TextOverflow.ellipsis,
-//                                  ),
-//                                )
-//                              ],
-//                            )
+                            Row(
+                              children: <Widget>[
+                                Text(
+                                  "等待：",
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(0, 0, 0, 0.45), fontSize: 12),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    "1天10时30分",
+                                    style: TextStyle(
+                                        fontSize: 14),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                )
+                              ],
+                            )
                           ],
                         ),
                       ),

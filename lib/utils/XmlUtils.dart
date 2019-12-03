@@ -1,9 +1,9 @@
-
 import 'package:dio/dio.dart';
 import 'package:gztyre/api/model/FunctionPositionWithDevice.dart';
 import 'package:gztyre/api/model/Order.dart';
 import 'package:gztyre/api/model/ProblemDescription.dart';
 import 'package:gztyre/api/model/RepairType.dart';
+import 'package:gztyre/api/model/ReportOrder.dart';
 import 'package:gztyre/api/model/UserInfo.dart';
 import 'package:gztyre/api/model/WorkShift.dart';
 import 'package:xml/xml.dart' as xml;
@@ -234,6 +234,107 @@ class XmlUtils {
           });
         });
     return builder.build();
+  }
+
+  static xml.XmlNode buildReportOrderDetailXml(String QMNUM) {
+    var builder = new xml.XmlBuilder();
+    builder.element("Envelope",
+        attributes: {"xmlns": "http://schemas.xmlsoap.org/soap/envelope/"},
+        nest: () {
+          builder.element("Body", nest: () {
+            builder.element("ZpmSearchOrdermess", attributes: {
+              "xmlns": "urn:sap-com:document:sap:soap:functions:mc-style"
+            }, nest: () {
+              builder.element("Qmnum", attributes: {"xmlns": ""}, nest: QMNUM);
+            });
+          });
+        });
+    return builder.build();
+  }
+
+  static ReportOrder readReportOrderDetailXml(String stringXml) {
+    var document = xml.parse(stringXml);
+    ReportOrder order = new ReportOrder();
+    order.PERNR = document.findAllElements("Pernr").first.text;
+    order.KTEXT = document.findAllElements("Ktext").first.text;
+    order.CPLTX = document.findAllElements("Cpltx").first.text;
+    order.QMNUM = document.findAllElements("Qmnum").first.text;
+    order.QMTXT = document.findAllElements("Qmtxt").first.text;
+    order.FETXT = document.findAllElements("Fetxt").first.text;
+    order.EQUNR = document.findAllElements("Equnr").first.text;
+    order.EQKTX = document.findAllElements("Eqktx").first.text;
+    order.TPLNR = document.findAllElements("Tplnr").first.text;
+    order.PLTXT = document.findAllElements("Pltxt").first.text;
+    order.ASTXT = document.findAllElements("Astxt").first.text;
+    order.MSAUS = document.findAllElements("Msaus").first.text == "X" ? true : false;
+    order.ERDAT = document.findAllElements("Erdat").first.text;
+    order.ERTIM = document.findAllElements("Ertim").first.text;
+    return order;
+  }
+
+  static xml.XmlNode buildRepairOrderDetailXml(String AUFNR) {
+    var builder = new xml.XmlBuilder();
+    builder.element("Envelope",
+        attributes: {"xmlns": "http://schemas.xmlsoap.org/soap/envelope/"},
+        nest: () {
+          builder.element("Body", nest: () {
+            builder.element("ZpmSearchWxrec", attributes: {
+              "xmlns": "urn:sap-com:document:sap:soap:functions:mc-style"
+            }, nest: () {
+              builder.element("Aufnr", attributes: {"xmlns": ""}, nest: AUFNR);
+              builder.element("EtData", attributes: {"xmlns": ""}, nest: () {
+                builder.element("item", nest: () {
+                  builder.element("Pernr", nest: "");
+                  builder.element("Version", nest: "");
+                  builder.element("Ktext", nest: "");
+                  builder.element("Cpltx", nest: "");
+                  builder.element("Aufnr", nest: "");
+                  builder.element("Ktext1", nest: "");
+                  builder.element("Equnr", nest: "");
+                  builder.element("Eqktx", nest: "");
+                  builder.element("Tplnr", nest: "");
+                  builder.element("Pltxt", nest: "");
+                  builder.element("Asttx", nest: "");
+                  builder.element("Msaus", nest: "");
+                  builder.element("Erdat", nest: "");
+                  builder.element("Ertim", nest: "");
+                });
+              });
+              builder.element("EtResb", attributes: {"xmlns": ""}, nest: () {
+                builder.element("item", nest: () {
+                  builder.element("Aufnr", nest: "");
+                  builder.element("Matnr", nest: "");
+                  builder.element("Maktx", nest: "");
+                  builder.element("Enmng", nest: "");
+                  builder.element("Bwart", nest: "");
+                  builder.element("Erdat", nest: "");
+                  builder.element("Ertim", nest: "");
+                });
+              });
+            });
+          });
+        });
+    return builder.build();
+  }
+
+  static ReportOrder readRepairOrderDetailXml(String stringXml) {
+    var document = xml.parse(stringXml);
+    ReportOrder order = new ReportOrder();
+    order.PERNR = document.findAllElements("Pernr").first.text;
+    order.KTEXT = document.findAllElements("Ktext").first.text;
+    order.CPLTX = document.findAllElements("Cpltx").first.text;
+    order.QMNUM = document.findAllElements("Qmnum").first.text;
+    order.QMTXT = document.findAllElements("Qmtxt").first.text;
+    order.FETXT = document.findAllElements("Fetxt").first.text;
+    order.EQUNR = document.findAllElements("Equnr").first.text;
+    order.EQKTX = document.findAllElements("Eqktx").first.text;
+    order.TPLNR = document.findAllElements("Tplnr").first.text;
+    order.PLTXT = document.findAllElements("Pltxt").first.text;
+    order.ASTXT = document.findAllElements("Astxt").first.text;
+    order.MSAUS = document.findAllElements("Msaus").first.text == "X" ? true : false;
+    order.ERDAT = document.findAllElements("Erdat").first.text;
+    order.ERTIM = document.findAllElements("Ertim").first.text;
+    return order;
   }
 
   static List<RepairType> readRepairTypeXml(String stringXml) {

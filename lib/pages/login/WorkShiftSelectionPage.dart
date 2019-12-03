@@ -26,7 +26,8 @@ class _WorkShiftSelectionPageState extends State<WorkShiftSelectionPage> {
 
   WorkShift _selectItem;
 
-  Set<WorkShift> historyList = Set();
+  List<WorkShift> _historyList = List();
+  List _historyStringList = List();
 
   List<WorkShift> allList = [];
   List<WorkShift> _tempList = [];
@@ -87,18 +88,32 @@ class _WorkShiftSelectionPageState extends State<WorkShiftSelectionPage> {
   }
 
   _listWorkShift() async {
-//    try {
-//      this.historyList = await jsonDecode(Global.prefs.get("historyWorkShift"));
-//    } catch (e) {
-//      this.historyList = Set();
-//    }
+    var string= await Global.prefs.get("historyWorkShift");
+    List historyList = jsonDecode(string);
+    this._historyStringList = historyList;
     await HttpRequest.listWorkShift(widget.userName, (list) {
+      setState(() {
+        this._loading = false;
+      });
       this.allList = list;
       this._tempList.addAll(list);
-      this._loading = false;
+      list.forEach((item) {
+        historyList.forEach((item2) {
+          if (item.TPLNR == item2) {
+            this._historyList.add(item);
+            this._tempList.remove(item);
+          }
+        });
+      });
+      this.allList.clear();
+      this.allList.addAll(this._tempList);
+//      this._tempList.addAll(list);
+      this._selectItem = this._historyList.last;
     }, (err) {
       print(err);
-      this._loading = false;
+      setState(() {
+        this._loading = false;
+      });
     });
   }
 
@@ -115,8 +130,8 @@ class _WorkShiftSelectionPageState extends State<WorkShiftSelectionPage> {
       print(this.allList);
     });
     this._listWorkShiftFuture = _listWorkShift();
-    if (this.historyList.length > 0) {
-      this._selectItem = this.historyList.first;
+    if (this._historyList.length > 0) {
+      this._selectItem = this._historyList.first;
     }
     super.initState();
   }
@@ -166,6 +181,13 @@ class _WorkShiftSelectionPageState extends State<WorkShiftSelectionPage> {
                                 );
                               });
                         } else {
+                          this._historyStringList.add(this._selectItem.TPLNR);
+                          if (this._historyStringList.length > 5) {
+                            this._historyStringList.removeAt(0);
+                          }
+                          var string = jsonEncode(this._historyStringList.toList());
+                          print(string);
+                          await Global.prefs.setString("historyWorkShift", jsonEncode(this._historyStringList.toList()));
                           await Navigator.of(context).pushAndRemoveUntil(
                               CupertinoPageRoute(builder: (BuildContext context) {
                                 return ContainerPage(
@@ -175,8 +197,6 @@ class _WorkShiftSelectionPageState extends State<WorkShiftSelectionPage> {
                             return false;
                           });
                         }
-//                        this.historyList.add(this._selectItem);
-//                        await Global.prefs.setString("historyWorkShift", jsonEncode(this.historyList.toList()));
                       },
                       text: "确定",
                     ),
@@ -186,7 +206,7 @@ class _WorkShiftSelectionPageState extends State<WorkShiftSelectionPage> {
                           child: ListView(
                             children: <Widget>[
                               SearchBar(controller: this._shiftController),
-                              ...createWidgetList(this.historyList.toList(), "历史选择"),
+                              ...createWidgetList(this._historyList.toList(), "历史选择"),
                               ...createWidgetList(this.allList, "所有班次"),
                             ],
                           ))),
